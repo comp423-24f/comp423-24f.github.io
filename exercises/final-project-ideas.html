@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> Final Project CFP - COMP423 - 23S</title>
+  <link rel="icon" type="image/png" href="/static/tabbrand.png" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="/static/styles.css?v=1723987975.9630775">
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-1 fixed-top">
+    <div class="container">
+      <a href="/" class="navbar-brand">COMP423</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navmenu">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link " href="/">agenda</a>
+          </li>
+          <li class="nav-item">
+            <a href="/support" class="nav-link">support</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div id="exercises-page" class="container">
+    <div class="row pt-4">
+      <div class="col-12">
+        <h2>Final Project CFP</h2>
+        <hr class="title" />
+      </div>
+    </div>
+
+    <script src="/static/scripts/toggle-handler.js"></script>
+    
+    <div class="row px-4">
+        <div id="box" class="toc col-xl-3 col-lg-3 order-1 order-lg-2" role="doc-toc">
+            <div id="menu-overview" class="link-page box">
+                <button id="overview-button" class="btn btn-ov" onclick="hideshow()">Overview  <img id="button-img" class="filter-icon" src="/static/components/Itinerary/arrow-up.svg" style="height:15px; padding-left: 4px;"></button>
+                <div id="overview-links">
+                    <div id="TOC" role="doc-toc">
+                        <ul class="overview-item"><ul>
+<li><a href="#xl-news-feed-and-announcement-system">XL News Feed and Announcement System</a></li>
+<li><a href="#student-organization-roster-management-and-members-only-features">Student Organization Roster Management and Members-only Features</a></li>
+<li><a href="#digital-signage-for-xl-lounge-and-hallway">Digital Signage for XL Lounge and Hallway</a></li>
+<li><a href="#interactive-seating-chart-widget">Interactive Seating Chart Widget</a></li>
+<li><a href="#propose-a-project">Propose a Project</a></li>
+</ul>
+</</ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="content" class="content col-xl-9 col-lg-9 order-2 order-lg-1 pt-3"><p>For the final project, your team will choose a feature of the Computer Science Experience Labs’ web application to focus on implementing well to serve the UNC Computer Science population. Part of your task is designing the user experience around this feature, with design and technical specification documents. Therefore, the descriptions of each project is intentionally high level and goal-oriented.</p>
+<h2 id="xl-news-feed-and-announcement-system">XL News Feed and Announcement System</h2>
+<p>The Computer Science Experience Labs (CSXL) and student organizations need to be able to publish news updates to the XL website with some frequency to share newsworthy announcements, stories, and more.</p>
+<p>A news post needs:</p>
+<ol start="0" type="1">
+<li>ID (primary key)</li>
+<li>Headline</li>
+<li>Synopsis</li>
+<li>Main Story (written in Markdown)</li>
+<li>Author (relationship to a user)</li>
+<li>Organization (optional relationship to an Organization)</li>
+<li>State (Draft, Published, Archived)</li>
+<li>Slug (unique string used in URL rather than news ID)</li>
+<li>Image URL (optional link to an image for use in feed listing)</li>
+<li>Publish Date</li>
+<li>Modification Date</li>
+</ol>
+<p>Additional fields can be added, if supported with rationale.</p>
+<p>The news feed should become the de facto “home page” of the XL web site listing the most recent news stories in reverse chronological order. This is true for both public, unauthenticated users as well as logged in users. This listing should be paginated and able to load older posts. Each individual news post should be navigable by a URL on the front-end that makes use of its slug field rather than an ID.</p>
+<p>There must be an administrator-only view protected by the permission system that provides Create/Read/Update/Delete/Search (CRUD) listing and editor for adding news stories to the database. Ideally, the news post list view should be paginated (similar to the Users list view in User Administration). The individual news post editor should be pleasant to use and enable working on drafts ahead of publishing. For a post author/administrator, it should be possible to view a draft as “users will see it” at its URL on the front-end; but users without permission should see a “not found” page.</p>
+<p>Stretch goals and extension ideas:</p>
+<ol type="1">
+<li>Multiple author support</li>
+<li>Design and integrate a “Coworking Widget” above/beside the news feed on the home page that is useful for visitors to the XL (e.g. perhaps it just displays open hours, or maybe shows your current/next reservation, and links to the coworking home page). What would <em>your group</em> want it to be?</li>
+<li>Mark a news post as an “Announcement” and update the design of the title bar on the app to reflect an announcement exists and can be opened in a modal</li>
+</ol>
+<h2 id="student-organization-roster-management-and-members-only-features">Student Organization Roster Management and Members-only Features</h2>
+<p>Student Organizations currently have no form of membership or leadership represented in the CSXL database. If membership/leadership relationships were established with users, it would enable additional features for student organizations (such as members-only events, information, and so on). Some student organizations are open to all interested while others require application processes. A special case of an “organization” is the CS Department and CSXL, which do not have memberships.</p>
+<p>Student Organizations Need:</p>
+<ol type="1">
+<li>The ability to distinguish type of organization (open to all, application/request-based, closed)</li>
+<li>The ability for a user to request to join an organization that is not a closed organization</li>
+<li>The ability for organization leaders to accept or deny requests to join (when application/request-based)</li>
+<li>Memberships to be based on Academic Terms (e.g. joining for Fall 2024 and Spring 2025)</li>
+<li>Memberships to have a “level” assigned to it (member, leadership)</li>
+<li>Memberships to have optional titles (e.g. President, Treasurer)</li>
+<li>Memberships to have an admin toggle which give a member privileges to edit CSXL website info/events for organization</li>
+<li>The ability for an org to list its leaders (and members?) by academic term on their organization page</li>
+</ol>
+<p>Stretch Goals:</p>
+<ol type="1">
+<li>The ability to post members-only information in markdown format (for things like links to Slack, etc.)</li>
+<li>The ability to have members-only events (which do not show up in events feed unless you are a member)</li>
+</ol>
+<h2 id="digital-signage-for-xl-lounge-and-hallway">Digital Signage for XL Lounge and Hallway</h2>
+<p>The XL Hallway will soon have digital signage in the form of one, or more, large screen (65") displays. These displays should be driven by special routes on the CSXL web application that integrate with our API and provide live, up-to-date information about XL availability, upcoming events, stats, the XL Instagram feed, and so on. The screens need to have nice animation and an appealing design, and will need to operate outside of our Material Design UI, so this project should be taken on by groups who have at least two members with front-end mobile/web and some design experience as this is a front-end heavy project.</p>
+<p>Digital Signage Needs:</p>
+<ol type="1">
+<li>To break out of the user-facing CSXL Web App frontend’s Material UI container and have a full screen presentation mode</li>
+<li>Transition animations between slides using Angular’s Animation capabilities</li>
+<li>The solution should make it easy to extend with new slides in the future</li>
+<li>Administrator control a list of activate slides</li>
+<li>Slides ideas include, in order of priority and challenge:</li>
+</ol>
+<ul>
+<li>CSXL Title / Logo Slide</li>
+<li>Events Upcoming in the Next Week (skip slide if none)</li>
+<li>Generic Slides Template(s) - ability to add slides in the rotation with a generic template, markdown for some text, link to image(s)</li>
+<li>Statistics on XL Usage (e.g. serving X visits and Y people in the past year), Hours of Operation, or other Coworking Data</li>
+<li>Latest Instagram Post (requires Instagram Basic Display API Integration)</li>
+</ul>
+<p>For Instagram Dispaly API integration, to pull the latest post(s) see: <a href="https://developers.facebook.com/docs/instagram-basic-display-api/overview" class="uri">https://developers.facebook.com/docs/instagram-basic-display-api/overview</a>. Additionally, look toward the GitHub API integration on the user profile page for linking to GitHub. How to store keys necessary for integration with this API (whether as an environment variable or in the database) is a challenge left to the project team.</p>
+<p>Stretch goals:</p>
+<ol type="1">
+<li>Additional slide ideas that would be interesting and valuable to our community</li>
+<li>Ability to have multiple different displays and a rotation setup for each individual display</li>
+</ol>
+<h2 id="interactive-seating-chart-widget">Interactive Seating Chart Widget</h2>
+<p>The XL Coworking Space and some Pair Programming Labs (coming soon!) would like to make it possible to reserve specific seat(s) for one or more people at a time. To make it possible to reserve or change specific seats, we really need an interactive seat map widget. This widget may also be used in a future integration with the digital signage project such that one of the screens shows a seat map of available versus taken seats. The seating chart should be driven by SVG graphics and with graphical representations that are to scale.</p>
+<p><a href="/static/downloads/floor_plan.pdf">For a current floor plan, see this file</a>.</p>
+<p>Interactive Seating Chart Needs:</p>
+<ol type="1">
+<li>A Room Entity needs the ability to store its floorplan (with tables and boundaries of room, but not seats) in an SVG text field. This should be editable via the room editor.</li>
+<li>A Seat Entity needs the ability to store its shape in an SVG text field; Seat entities already have (unused) X, Y coordinate fields for relative placement.</li>
+<li>The ability to manage a room’s seats as an administrator needs to be added to the CSXL web application.</li>
+<li>The Seating Chart Widget can load a room and all of its seats from API data</li>
+<li>The Seating Chart Widget has a means for parent components to mark seats by state (taken, vacant) and have a visual representation of such</li>
+<li>The Seating Chart Widget has a means for parent components to make seats selectable (with a maximum) vs. disabled for selection and have a visual representation of such</li>
+<li>The Seating Chart Widget has a means to notify parent components, as an Angular output, of seat selection changes</li>
+<li>The Project needs one or more Demo Components which embed the Seating Chart Widget and show off the above abilities of the widget. At least one of the demo components should seat availability from the Coworking Status API to show the current state of seats in SN156.</li>
+<li>Demo Data should load a seat map for SN156 (to scale floor plan to be provided)</li>
+<li>The seating chart should be usable via a mobile phone (consider adding all shapes to a Group in the viewport and making the group draggable)</li>
+</ol>
+<p>Stretch Goals:</p>
+<ol type="1">
+<li>Future pair programming rooms will have two seats for one monitor, update the Seat entity to add “Capacity” that is an integer and demo usage</li>
+<li>Rather than have the Seat Editor (need #3) be traditional CRUDs with form fields and entering in X/Y positions as numbers, make the seat chart widget interactive such that a mode of the widget is “editor” mode allowing you to move seats around via the GUI. Selecting an individual seat should load its information for editing adjacent to (this is super try-hard and should probably not be attempted).</li>
+</ol>
+<h2 id="propose-a-project">Propose a Project</h2>
+<p>Your team is free to propose a custom project by Tuesday, March 21st at 11:59pm. To do so, write up the project in a format similar to the above project proposals with a brief description of use, important needs, and stretch goals. Email the project proposal with the subject “COMP423 Project Proposal: TITLE” substituting your title in, CC all members of your group and <a href="mailto:kris@cs.unc.edu" class="email">kris@cs.unc.edu</a>, and include the text of the proposal. Additionally, indicate your top choice if the proposal is not approved. Generally, approval is driven by scope and likelihood of completing needs within a 7-week period to close out the semester.</p>
+</div>
+
+       
+
+    </div> 
+
+    <div class="authors-box bg-light mt-4 py-3 ps-4">
+      <span> Contributor(s): Kris Jordan</span>
+    </div>
+  </div>
+  <div class='link-page mt-3 container'>
+    <footer>
+      <h6 class="text-center align-middle footer-text">&copy; 2024 <a href="https://krisjordan.com">Kris Jordan</a>
+        - <a
+          href="https://docs.google.com/forms/d/e/1FAIpQLScQMteEvnQpBfGsAYP5TpuqokQenhZUIf8CNvfAUUZEjMCWZQ/viewform?usp=sf_link">Feedback
+          Form</a>
+        - Made with 💛 in <a href="https://cs.unc.edu/">Chapel Hill</a></h6>
+    </footer>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+    crossorigin="anonymous"></script>
+
+  <!-- Load React. -->
+  <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+  <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</body>
+
+</html>
