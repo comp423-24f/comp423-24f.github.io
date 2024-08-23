@@ -9,7 +9,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
-  <link rel="stylesheet" href="/static/styles.css?v=1724441493.2324233">
+  <link rel="stylesheet" href="/static/styles.css?v=1724444578.964752">
 </head>
 
 <body>
@@ -64,7 +64,22 @@
 <p>Steps 1 through 5. The DevContainers standard specifies <code>.devcontainer</code> a special, “hidden” folder where a <code>devcontainer.json</code> file is placed. This file specifies the settings of a DevContainer for a project. There are some other ways of organizing this, as well, but as our setups grow more complex this folder organization offers benefits in keeping DevContainer-related files bundled together.</p>
 <p>Step 6 starts the DevContainer. This involves downloading an <em>image</em>, made up of multiple layers, found at the <code>"image"</code> URL in your <code>devcontainer.json</code> file. You will notice this is hosted by Microsoft and is one of their first-party DevContainer images for working with TypeScript / Node.js JavaScript projects. The image contains all of the files and some metadata for running a Docker Container that powers your VSCode’s “backend”. Your project directory, <code>ts-container</code> is <em>mounted</em> into the DevContainer so that these files are shared between the container environment and your host machine.</p>
 <p>The DevContainer environment you just setup ensures consistency across your IDE and everyone else in this course, or on a software project, utilizing it.</p>
-<h2 id="establishing-a-project-and-managing-dependencies">1. Establishing a Project and Managing Dependencies</h2>
+<h2 id="initializing-a-git-repository">1. Initializing a <code>git</code> Repository</h2>
+<p>Since this is a new project and we’d like to use source code control to checkpoint our progress along the way, let’s initialize a new <code>git</code> repository for this project. First let’s set our system’s default branch name:</p>
+<p><code>git config --global init.defaultBranch main</code></p>
+<p>Then, let’s initialize our <code>git</code> repository:</p>
+<p><code>git init</code></p>
+<p>You will notice some successful output and that <code>(main)</code> now shows us in our CLI <code>$PROMPT</code> the current branch our repository is on. To convince you this is a brand new <code>git</code> repository, try running the command <code>git log</code> to be greeted with a message saying as much.</p>
+<p>Let’s make our first commit, adding our DevContainer settings to the repository:</p>
+<p><code>git add .devcontainer</code></p>
+<p>Confirm our staged commit has what we would expect:</p>
+<p><code>git status</code></p>
+<p>Form our first commit:</p>
+<p><code>git commit -m 'Add DevContainer settings'</code></p>
+<p>Then check our log:</p>
+<p><code>git log</code></p>
+<p>Congratulations, you’ve begun your first <code>git</code> repository for the project!</p>
+<h2 id="establishing-a-project-in-node.js">2. Establishing a Project in Node.js</h2>
 <p>Modern language platforms, such as Node.js/JavaScript, have standards or conventions around project structure. Additionally, <strong>Package Managers</strong> are responsible for specifying versions of 3rd party dependencies (libraries) called packages, installing, and updating them. In the Node.js platform, <code>npm</code> <em>Node Package Manager</em> is the standard tool. Let’s setup a basic project using <code>npm</code>:</p>
 <ol type="1">
 <li>Be sure you are working in your DevContainer! If you are reopening a project, look for “Dev Container” in the bottom left corner of your VSCode. If it is not there, reopen your project folder in a DevContainer like the instructions above, or look for it in the File</li>
@@ -78,7 +93,13 @@
 <li>Open the file “package.json”, these are your project’s settings for <code>npm</code>’s purposes</li>
 </ol>
 <p>Ultimately, this script simply produces the <code>package.json</code> file you see here. This file is expected in the root directory of a Node/JavaScript project.</p>
-<h2 id="adding-typescript-as-a-project-dependency">2. Adding TypeScript as a Project Dependency</h2>
+<p>There is one customization we will make to this file to make use of modern module syntax you’ll see shortly. Add this line after the <code>main</code> line in <code>package.json</code>:</p>
+<pre class="text"><code>  &quot;type&quot;: &quot;module&quot;,</code></pre>
+<p>Make another commit:</p>
+<p><code>git add .</code></p>
+<p>This adds everything in the current working directory to <code>git</code>’s commit staging area. Finally, commit it:</p>
+<p><code>git commit -m 'Add npm project package.json'</code></p>
+<h2 id="adding-typescript-as-a-project-dependency">3. Adding TypeScript as a Project Dependency</h2>
 <p>The TypeScript programming language adds static type annotations, static type checking, and some additional modern language features to JavaScript. Static typing is valuable in software engineering projects because it offers additional levels of confidence in the correctness of your program, enables many language IDE features (such as smart autocomplete) not otherwise possible, and better specifies your functions, classes, and so on, in a declarative fashion.</p>
 <p>TypeScript is implemented as an <code>npm</code> package we can take a <em>development dependency</em> on. TypeScript is needed to <em>transpile</em> (compile from TypeScript to JavaScript) a our project at development/design time, but it is not needed at runtime, thus it is a <em>development dependency</em> and not a proper <em>runtime</em> dependency. We will see this nuance more closely soon.</p>
 <p>The subcommand for installing a package is <code>install</code> (it can be shorthanded as <code>i</code>). The <code>--save-dev</code> long flag will save the dependency in <code>package.json</code> as a development dependency.</p>
@@ -97,42 +118,73 @@
 <p>Try running <code>tsc</code> via <code>npx</code>:</p>
 <p><code>npx tsc --version</code> or <code>./node_modules/.bin/tsc</code></p>
 <p>Notice that <code>npx</code> is shorthand for running an executable script in <code>./node_modules/.bin</code>, in this case the TypeScript Compiler <code>tsc</code>.</p>
-<h2 id="initializing-a-typescript-project">3. Initializing a TypeScript Project</h2>
+<p><strong>Before commiting our work: let’s establish a <code>.gitignore</code> file!</strong></p>
+<p>Notice above that <code>node_modules</code> should not be added to source code control. Why? Because for non-trivial projects this directory will contain orders of more magnitude more code than your project. Additionally, the purpose of <code>npm</code> is that it makes it easy to install and update the necessary packages in <code>node_modules</code> based only on what you specify in <code>package.json</code> and what <code>npm</code> manages based on this in <code>package-lock.json</code>.</p>
+<p>To ignore a directory, or specific files, in a <code>git</code> repository, we add a special kind of hidden file to a directory named <code>.gitignore</code>. Add this new file to your project and then add the following line to it:</p>
+<pre><code>node_modules/</code></pre>
+<p>Try running <code>git add .</code> and then <code>git status</code> and notice that the files inside of <code>node_modules</code> are ignored. Go ahead and make a commit with message: <code>'Add TypeScript as a development dependency'</code>.</p>
+<h2 id="initializing-a-typescript-project">4. Initializing a TypeScript Project</h2>
 <p>The TypeScript compiler also has configuration options. You can initialize a project’s settings by running the command:</p>
 <p><code>npx tsc --init</code></p>
 <p>You will notice this created a file named <code>tsconfig.json</code> in your root directory. Try uncommenting and updating the following two lines to specify where our source code files and build files will be located:</p>
 <p><code>"rootDir": "./src", /* Specify the root folder within your source files. */</code></p>
 <p>Set <code>rootDir</code> to <code>./src</code>. **Create a directory named <code>src</code> in VSCode File Explorer, or <code>mkdir src</code> from the Terminal.</p>
+<p>There are two lines right around <code>rootDir</code> which control the kind of module code that is used and generated. We want to use <code>"Node16"</code> for both, so update these two lines, as well:</p>
+<pre><code>&quot;module&quot;: &quot;Node16&quot;,             /* Specify what module code is generated. */
+&quot;moduleResolution&quot;: &quot;Node16&quot;,   /* Specify how TypeScript looks up a file from a given module specifier. */</code></pre>
+<p>Finally, update <code>outDir</code>:</p>
 <p><code>"outDir": "./dist", /* Specify an output folder for all emitted files. */</code></p>
 <p>Set <code>outDir</code> to <code>./dist</code>. **Create a directory named <code>dist</code> in VSCode File Explorer, or <code>mkdir dist</code> from the Terminal.</p>
 <p>Now try adding a file to <code>src</code> named <code>index.ts</code> with the following structure:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a>let main <span class="op">=</span> () <span class="kw">=&gt;</span> {</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a>    let message<span class="op">:</span> <span class="dt">string</span> <span class="op">=</span> <span class="st">&quot;Hello, world.&quot;</span><span class="op">;</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a>    <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(message)<span class="op">;</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a>}<span class="op">;</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true"></a><span class="fu">main</span>()<span class="op">;</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a>let main <span class="op">=</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a>    let message<span class="op">:</span> <span class="dt">string</span> <span class="op">=</span> <span class="st">&quot;Hello, world.&quot;</span><span class="op">;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true"></a>    <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(message)<span class="op">;</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true"></a>}<span class="op">;</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true"></a><span class="fu">main</span>()<span class="op">;</span></span></code></pre></div>
 <p>You can <em>compile</em> this TypeScript file by running the <code>tsc</code> program which is guided by the <code>tsconfig.json</code> file you just configured:</p>
 <p><code>npx tsc</code></p>
 <p>Upon doing so, look in your <code>dist</code> directory and you should see <code>index.js</code>. Compare it with <code>src/index.ts</code>, can you spot any differences?</p>
 <p>Finally, try running the compiled program with <code>node</code>:</p>
 <p><code>node ./dist/index.js</code></p>
 <p>You should see <code>Hello, world.</code> printed out! Woo! You’ve compiled and ran your first TypeScript program as a JavaScript program.</p>
-<h2 id="automating-the-compilation-and-running-of-our-program">4. Automating the Compilation and Running of Our Program</h2>
+<p>Finally, let’s make a commit. Before doing so, let’s also have <code>git</code> ignore our <code>dist</code> directory. Typically it is considered best practice for your Source Code Control (SCC) system, <code>git</code> in this case, to track primarily your source code and <em>not built artifacts</em> such as the generated files in <code>dist</code>.</p>
+<p>Add the following line to <code>.gitignore</code>:</p>
+<p><code>dist/</code></p>
+<p>Then add your files <code>git add .</code> and form another <code>git</code> commit with message <code>'Add initial entry point to program and TypeScript config'</code></p>
+<h2 id="automating-the-compilation-and-running-of-our-program">5. Automating the Compilation and Running of Our Program</h2>
 <p>It’s tedius and undocumented to have to remember to run <code>npx tsc</code> for compilation and <code>node ./dist/index.js</code> for running the program. Let’s automate these steps with simpler commands thanks to <code>npm</code>’s <code>scripts</code> feature in <code>package.json</code>.</p>
 <p>Open <code>package.json</code> and add the following lines to the <code>"scripts": {}</code> block:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a>    <span class="er">&quot;scripts&quot;:</span> <span class="fu">{</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a>        <span class="dt">&quot;test&quot;</span><span class="fu">:</span> <span class="st">&quot;echo </span><span class="ch">\&quot;</span><span class="st">Error: no test specified</span><span class="ch">\&quot;</span><span class="st"> &amp;&amp; exit 1&quot;</span><span class="fu">,</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a>        <span class="dt">&quot;start&quot;</span><span class="fu">:</span> <span class="st">&quot;node ./dist/index.js&quot;</span><span class="fu">,</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a>        <span class="dt">&quot;build&quot;</span><span class="fu">:</span> <span class="st">&quot;npx tsc&quot;</span><span class="fu">,</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a>        <span class="dt">&quot;build+start&quot;</span><span class="fu">:</span> <span class="st">&quot;npx tsc &amp;&amp; node ./dist/index.js&quot;</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a>    <span class="fu">}</span><span class="er">,</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a>    <span class="er">&quot;scripts&quot;:</span> <span class="fu">{</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a>        <span class="dt">&quot;test&quot;</span><span class="fu">:</span> <span class="st">&quot;echo </span><span class="ch">\&quot;</span><span class="st">Error: no test specified</span><span class="ch">\&quot;</span><span class="st"> &amp;&amp; exit 1&quot;</span><span class="fu">,</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true"></a>        <span class="dt">&quot;build&quot;</span><span class="fu">:</span> <span class="st">&quot;npx tsc&quot;</span><span class="fu">,</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true"></a>        <span class="dt">&quot;start&quot;</span><span class="fu">:</span> <span class="st">&quot;node ./dist/index.js&quot;</span><span class="fu">,</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true"></a>        <span class="dt">&quot;build+start&quot;</span><span class="fu">:</span> <span class="st">&quot;npx tsc &amp;&amp; node ./dist/index.js&quot;</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true"></a>    <span class="fu">}</span><span class="er">,</span></span></code></pre></div>
 <p>You can now run each of these scripts using the <code>npm</code> subcommand called <code>run</code>, for example:</p>
 <pre><code>npm run build
 npm run start
 npm run build+start</code></pre>
 <p>Notice each of the string values in the <code>"scripts"</code> dictionary is a command-line expression. The <code>test</code> and <code>start</code> scripts are special, they can be run as subcommands directly from <code>npm</code>, e.g. <code>npm test</code> and <code>npm start</code>. We’ll see how to configure a testing framework later. Generally, though, you can invent your own commands to be run as a script and invoke them using the <code>run</code> subcommand of <code>npm</code>.</p>
 <p>Congratulations, you have now followed through the steps to setup a clean and simple TypeScript project. Let’s try adding a 3rd party library to our project and making use of it in our simple program.</p>
+<p>Make an additional commit in <code>git</code>:</p>
+<pre><code>git add .
+git commit -m &#39;Automate building and starting the app&#39;</code></pre>
+<h2 id="adding-a-3rd-party-dependency">6. Adding a 3rd Party Dependency</h2>
+<p>Let’s try adding some <strong>color</strong> to our command-line output! The most popular package on <code>npm</code> for doing this is called <code>chalk</code>. Let’s install it and save it as a first-class dependency:</p>
+<pre><code>npm install --save chalk</code></pre>
+<p>You will notice that this updates your <code>package.json</code> and <code>package-lock.json</code> files to have the <code>chalk</code> dependency. Additionally, it installed the source code for <code>chalk</code> into <code>node_modules</code>.</p>
+<p>Now let’s use it in our program. Update your <code>src/index.ts</code> program to contain the following:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a><span class="im">import</span> chalk from <span class="st">&quot;chalk&quot;</span><span class="op">;</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true"></a>let main <span class="op">=</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true"></a>    let message<span class="op">:</span> <span class="dt">string</span> <span class="op">=</span> chalk<span class="op">.</span><span class="fu">bgGreen</span>(<span class="st">&quot;Hello, world.&quot;</span>)<span class="op">;</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true"></a>    <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(message)<span class="op">;</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true"></a>}<span class="op">;</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true"></a></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true"></a><span class="fu">main</span>()<span class="op">;</span></span></code></pre></div>
+<p>Try building and running your program using <code>npm</code>! Your output should have a green background!</p>
+<p>Finally, make one last git commit with the files in your project. Congrats on making your way through setting up a first TypeScript project!</p>
 </div>
             </div></div>
     </div>
