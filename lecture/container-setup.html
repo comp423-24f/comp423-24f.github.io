@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> CL02 - Container Setup - COMP423 - 23S</title>
+  <link rel="icon" type="image/png" href="/static/tabbrand.png" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="/static/styles.css?v=1724441493.2324233">
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-1 fixed-top">
+    <div class="container">
+      <a href="/" class="navbar-brand">COMP423</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navmenu">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link " href="/">agenda</a>
+          </li>
+          <li class="nav-item">
+            <a href="/support" class="nav-link">support</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div id="support-page" class="container">
+    <div class="row pt-4">
+      <div class="col-12">
+        <h2>CL02 - Container Setup</h2>
+        <hr class="title" />
+      </div>
+    </div>
+
+    <div class="container">
+        <div class="row"><div class="col">
+                <div class="content"><h2 id="devcontainer-setup">0. DevContainer Setup</h2>
+<p>These steps were completed in class in CL01 and you should not need to repeat. They are here only so that we have a complete record of steps needed.</p>
+<ol type="1">
+<li>Be sure Docker Desktop is installed and successfully running</li>
+<li>Be sure VSCode is installed and successfully running (VSCode &gt; Open Extensions &gt; DevContainers by Microsoft)</li>
+<li>On your laptop, create a folder named <code>ts-container</code>. Using VSCode, use the Open Folder feature, and select this folder you just created. (You should be able to complete both steps via the Open Folder feature).</li>
+<li>With VSCode opened to your <code>ts-containe</code> directory, create a new directory (use VSCode’s File Explorer) named <code>.devcontainer</code></li>
+<li>Within the <code>.devcontainer</code> directory, create a new file named <code>devcontainer.json</code> and set its contents to:</li>
+</ol>
+<div class="sourceCode" id="cb1"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a>    <span class="fu">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>        <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="st">&quot;ts-devcontainer-demo&quot;</span><span class="fu">,</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>        <span class="dt">&quot;image&quot;</span><span class="fu">:</span> <span class="st">&quot;mcr.microsoft.com/vscode/devcontainers/typescript-node&quot;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>    <span class="fu">}</span></span></code></pre></div>
+<ol start="6" type="1">
+<li>Open Command Palette and run <strong>“Dev Containers: Reopen in Container”</strong> (This will take a few minutes.)</li>
+<li>Once fully opened in a new VSCode editor, start a terminal and try running: <code>node --version</code> and you should see a reasonably modern version of node installed. At the time of this writing, it is <code>v22.6.0</code>.</li>
+</ol>
+<h3 id="whats-going-on-in-these-steps">What’s going on in these steps?</h3>
+<p>Steps 1 through 5. The DevContainers standard specifies <code>.devcontainer</code> a special, “hidden” folder where a <code>devcontainer.json</code> file is placed. This file specifies the settings of a DevContainer for a project. There are some other ways of organizing this, as well, but as our setups grow more complex this folder organization offers benefits in keeping DevContainer-related files bundled together.</p>
+<p>Step 6 starts the DevContainer. This involves downloading an <em>image</em>, made up of multiple layers, found at the <code>"image"</code> URL in your <code>devcontainer.json</code> file. You will notice this is hosted by Microsoft and is one of their first-party DevContainer images for working with TypeScript / Node.js JavaScript projects. The image contains all of the files and some metadata for running a Docker Container that powers your VSCode’s “backend”. Your project directory, <code>ts-container</code> is <em>mounted</em> into the DevContainer so that these files are shared between the container environment and your host machine.</p>
+<p>The DevContainer environment you just setup ensures consistency across your IDE and everyone else in this course, or on a software project, utilizing it.</p>
+<h2 id="establishing-a-project-and-managing-dependencies">1. Establishing a Project and Managing Dependencies</h2>
+<p>Modern language platforms, such as Node.js/JavaScript, have standards or conventions around project structure. Additionally, <strong>Package Managers</strong> are responsible for specifying versions of 3rd party dependencies (libraries) called packages, installing, and updating them. In the Node.js platform, <code>npm</code> <em>Node Package Manager</em> is the standard tool. Let’s setup a basic project using <code>npm</code>:</p>
+<ol type="1">
+<li>Be sure you are working in your DevContainer! If you are reopening a project, look for “Dev Container” in the bottom left corner of your VSCode. If it is not there, reopen your project folder in a DevContainer like the instructions above, or look for it in the File</li>
+<li>Open a new Terminal Session in VSCode</li>
+<li>Run the command <code>npm init</code>. The <code>npm</code> program uses a “subcommand” pattern where the first shell argument is the “subcomand” you want <code>npm</code> to perform. The <code>init</code> subcommand initializes a new project.</li>
+<li>Press Enter to accept the default settings for name</li>
+<li>Press Enter to accept the default settings for version</li>
+<li>Press Enter to accept the default settings for description</li>
+<li>For “entry point”, use: <code>dist/index.js</code> - This will be our “main” program file found in the <code>dist</code> directory where our project will build.</li>
+<li>Press enter to accept default setting for the rest of the settings and accepting the file</li>
+<li>Open the file “package.json”, these are your project’s settings for <code>npm</code>’s purposes</li>
+</ol>
+<p>Ultimately, this script simply produces the <code>package.json</code> file you see here. This file is expected in the root directory of a Node/JavaScript project.</p>
+<h2 id="adding-typescript-as-a-project-dependency">2. Adding TypeScript as a Project Dependency</h2>
+<p>The TypeScript programming language adds static type annotations, static type checking, and some additional modern language features to JavaScript. Static typing is valuable in software engineering projects because it offers additional levels of confidence in the correctness of your program, enables many language IDE features (such as smart autocomplete) not otherwise possible, and better specifies your functions, classes, and so on, in a declarative fashion.</p>
+<p>TypeScript is implemented as an <code>npm</code> package we can take a <em>development dependency</em> on. TypeScript is needed to <em>transpile</em> (compile from TypeScript to JavaScript) a our project at development/design time, but it is not needed at runtime, thus it is a <em>development dependency</em> and not a proper <em>runtime</em> dependency. We will see this nuance more closely soon.</p>
+<p>The subcommand for installing a package is <code>install</code> (it can be shorthanded as <code>i</code>). The <code>--save-dev</code> long flag will save the dependency in <code>package.json</code> as a development dependency.</p>
+<p><code>npm install --save-dev typescript</code></p>
+<p>This command has three significant effects:</p>
+<ol type="1">
+<li>It installs the TypeScript package in <code>node_modules</code>, a directory where <code>npm</code> organizes your code dependencies.
+<ul>
+<li>The <code>typescript</code> package’s library files are stored in <code>node_modules/typescript</code></li>
+<li>The <code>typescript</code> package’s <em>executable scripts</em> are stored in <code>node_modules/.bin</code></li>
+</ul></li>
+<li>It adds the TypeScript dependency to <code>"devDependencies"</code> in <code>package.json</code> (this is from specifying <code>--save-dev</code>).</li>
+<li>It created a <code>package-lock.json</code> file that has more information about the very specific dependencies installed for the project.</li>
+</ol>
+<p>When the time comes to establish a project source code repository, e.g. a <code>git</code> repository, generally <code>node_modules</code> and 3rd party libaries <strong>are not</strong> included in project repositories. These files are easily reinstalled based on <code>package.json</code> and <code>package-lock.json</code> via <code>npm</code>. The files <code>package.json</code> and <code>package-lock.json</code> <strong>are</strong> included in project repositories.</p>
+<p>Try running <code>tsc</code> via <code>npx</code>:</p>
+<p><code>npx tsc --version</code> or <code>./node_modules/.bin/tsc</code></p>
+<p>Notice that <code>npx</code> is shorthand for running an executable script in <code>./node_modules/.bin</code>, in this case the TypeScript Compiler <code>tsc</code>.</p>
+<h2 id="initializing-a-typescript-project">3. Initializing a TypeScript Project</h2>
+<p>The TypeScript compiler also has configuration options. You can initialize a project’s settings by running the command:</p>
+<p><code>npx tsc --init</code></p>
+<p>You will notice this created a file named <code>tsconfig.json</code> in your root directory. Try uncommenting and updating the following two lines to specify where our source code files and build files will be located:</p>
+<p><code>"rootDir": "./src", /* Specify the root folder within your source files. */</code></p>
+<p>Set <code>rootDir</code> to <code>./src</code>. **Create a directory named <code>src</code> in VSCode File Explorer, or <code>mkdir src</code> from the Terminal.</p>
+<p><code>"outDir": "./dist", /* Specify an output folder for all emitted files. */</code></p>
+<p>Set <code>outDir</code> to <code>./dist</code>. **Create a directory named <code>dist</code> in VSCode File Explorer, or <code>mkdir dist</code> from the Terminal.</p>
+<p>Now try adding a file to <code>src</code> named <code>index.ts</code> with the following structure:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a>let main <span class="op">=</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a>    let message<span class="op">:</span> <span class="dt">string</span> <span class="op">=</span> <span class="st">&quot;Hello, world.&quot;</span><span class="op">;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a>    <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(message)<span class="op">;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a>}<span class="op">;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true"></a><span class="fu">main</span>()<span class="op">;</span></span></code></pre></div>
+<p>You can <em>compile</em> this TypeScript file by running the <code>tsc</code> program which is guided by the <code>tsconfig.json</code> file you just configured:</p>
+<p><code>npx tsc</code></p>
+<p>Upon doing so, look in your <code>dist</code> directory and you should see <code>index.js</code>. Compare it with <code>src/index.ts</code>, can you spot any differences?</p>
+<p>Finally, try running the compiled program with <code>node</code>:</p>
+<p><code>node ./dist/index.js</code></p>
+<p>You should see <code>Hello, world.</code> printed out! Woo! You’ve compiled and ran your first TypeScript program as a JavaScript program.</p>
+<h2 id="automating-the-compilation-and-running-of-our-program">4. Automating the Compilation and Running of Our Program</h2>
+<p>It’s tedius and undocumented to have to remember to run <code>npx tsc</code> for compilation and <code>node ./dist/index.js</code> for running the program. Let’s automate these steps with simpler commands thanks to <code>npm</code>’s <code>scripts</code> feature in <code>package.json</code>.</p>
+<p>Open <code>package.json</code> and add the following lines to the <code>"scripts": {}</code> block:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a>    <span class="er">&quot;scripts&quot;:</span> <span class="fu">{</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a>        <span class="dt">&quot;test&quot;</span><span class="fu">:</span> <span class="st">&quot;echo </span><span class="ch">\&quot;</span><span class="st">Error: no test specified</span><span class="ch">\&quot;</span><span class="st"> &amp;&amp; exit 1&quot;</span><span class="fu">,</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a>        <span class="dt">&quot;start&quot;</span><span class="fu">:</span> <span class="st">&quot;node ./dist/index.js&quot;</span><span class="fu">,</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a>        <span class="dt">&quot;build&quot;</span><span class="fu">:</span> <span class="st">&quot;npx tsc&quot;</span><span class="fu">,</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a>        <span class="dt">&quot;build+start&quot;</span><span class="fu">:</span> <span class="st">&quot;npx tsc &amp;&amp; node ./dist/index.js&quot;</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a>    <span class="fu">}</span><span class="er">,</span></span></code></pre></div>
+<p>You can now run each of these scripts using the <code>npm</code> subcommand called <code>run</code>, for example:</p>
+<pre><code>npm run build
+npm run start
+npm run build+start</code></pre>
+<p>Notice each of the string values in the <code>"scripts"</code> dictionary is a command-line expression. The <code>test</code> and <code>start</code> scripts are special, they can be run as subcommands directly from <code>npm</code>, e.g. <code>npm test</code> and <code>npm start</code>. We’ll see how to configure a testing framework later. Generally, though, you can invent your own commands to be run as a script and invoke them using the <code>run</code> subcommand of <code>npm</code>.</p>
+<p>Congratulations, you have now followed through the steps to setup a clean and simple TypeScript project. Let’s try adding a 3rd party library to our project and making use of it in our simple program.</p>
+</div>
+            </div></div>
+    </div>
+
+    <div class="authors-box bg-light mt-4 py-3 ps-4">
+      <span> Contributor(s): Kris Jordan</span>
+    </div>
+  </div>
+  <div class='link-page mt-3 container'>
+    <footer>
+      <h6 class="text-center align-middle footer-text">&copy; 2024 <a href="https://krisjordan.com">Kris Jordan</a>
+        - <a
+          href="https://docs.google.com/forms/d/e/1FAIpQLScQMteEvnQpBfGsAYP5TpuqokQenhZUIf8CNvfAUUZEjMCWZQ/viewform?usp=sf_link">Feedback
+          Form</a>
+        - Made with 💛 in <a href="https://cs.unc.edu/">Chapel Hill</a></h6>
+    </footer>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+    crossorigin="anonymous"></script>
+
+  <!-- Load React. -->
+  <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+  <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</body>
+
+</html>
