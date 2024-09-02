@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> EX01 Pomodoro Frontend Setup - COMP423 - 23S</title>
+  <link rel="icon" type="image/png" href="/static/tabbrand.png" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="/static/styles.css?v=1725308535.5042357">
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-1 fixed-top">
+    <div class="container">
+      <a href="/" class="navbar-brand">COMP423</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navmenu">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link " href="/">agenda</a>
+          </li>
+          <li class="nav-item">
+            <a href="/support" class="nav-link">support</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div id="exercises-page" class="container">
+    <div class="row pt-4">
+      <div class="col-12">
+        <h2>EX01 Pomodoro Frontend Setup</h2>
+        <hr class="title" />
+      </div>
+    </div>
+
+    <script src="/static/scripts/toggle-handler.js"></script>
+    
+    <div class="row px-4">
+        <div id="box" class="toc col-xl-3 col-lg-3 order-1 order-lg-2" role="doc-toc">
+            <div id="menu-overview" class="link-page box">
+                <button id="overview-button" class="btn btn-ov" onclick="hideshow()">Overview  <img id="button-img" class="filter-icon" src="/static/components/Itinerary/arrow-up.svg" style="height:15px; padding-left: 4px;"></button>
+                <div id="overview-links">
+                    <div id="TOC" role="doc-toc">
+                        <ul class="overview-item"><ul>
+<li><a href="#initialize-the-csxl-repository">Initialize The CSXL Repository</a></li>
+<li><a href="#setup-team-on-github-classroom">Setup Team on GitHub Classroom</a></li>
+<li><a href="#add-team-remote-to-csxl-repository">Add Team Remote to CSXL Repository</a></li>
+<li><a href="#github-repository-configuration">GitHub Repository Configuration</a></li>
+</ul>
+</</ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="content" class="content col-xl-9 col-lg-9 order-2 order-lg-1 pt-3"><h2 id="initialize-the-csxl-repository">Initialize The CSXL Repository</h2>
+<p>On your host machine, as was started in class, follow these instructions:</p>
+<ol type="1">
+<li>From VSCode, open a new Window</li>
+<li>Command Palette &gt; Git Clone: https://github.com/unc-csxl/csxl.unc.edu.git</li>
+<li>After cloning DO NOT follow automated suggestions! FIRST:
+<ol type="a">
+<li>Open docs/get_started.md</li>
+<li>Follow Before Starting a DevContainer: Establish a .env File</li>
+</ol></li>
+<li>After starting the container, complete the getting started steps</li>
+</ol>
+<h2 id="setup-team-on-github-classroom">Setup Team on GitHub Classroom</h2>
+<ol type="1">
+<li><p>One member of the team should carefully create the team. Only one member needs to take this step <em>first</em>. Create a team named “EX01 NN” where the NN is the TEAM NUMBER of your group on the pairings page sent out via Canvas. Check it closely! Accept the assignment on behalf of your team and, after refreshing, it will create a repository at <code>github.com/comp423-24s/csxl-ex01-pomodoro-front-end-team-NN</code>. Assignment acceptance link: <a href="https://classroom.github.com/a/RDhFwB_E" class="uri">https://classroom.github.com/a/RDhFwB_E</a></p></li>
+<li><p>After completing Step 1, all other members of the team should join the correct team and accept the assignment to be added to the repository. Assignment acceptance link: <a href="https://classroom.github.com/a/RDhFwB_E" class="uri">https://classroom.github.com/a/RDhFwB_E</a></p></li>
+</ol>
+<h2 id="add-team-remote-to-csxl-repository">Add Team Remote to CSXL Repository</h2>
+<ol type="1">
+<li><p>Be sure to clone into your team assignment repository! From this point onward, you should only be working in that repo, not the “main” CSXL repo.</p></li>
+<li><p>In a terminal from the VSCode Devcontainer, let’s reconfigure our remotes: A. <code>git remote rm origin</code> - Removes the csxl origin remote B. <code>get remote add origin &lt;your team repo here&gt;</code> - Adds your team’s repo as the new origin C. <code>git push origin main</code> - Pushes to your team remo’s main branch (You should now see code show up on GitHub in your team project repo) D. <code>git remote add upstream https://github.com/unc-csxl/csxl.unc.edu.git</code> - Adds</p></li>
+<li><p>Fetch all branches from <code>upstream</code> and checkout:</p>
+<ul>
+<li><code>get fetch --all</code></li>
+<li><code>git checkout --track upstream/comp423/ex01-pomodoro-frontend</code></li>
+</ul></li>
+<li><p>Push the <code>comp423/ex01-pomodoro-frontend</code> branch to the <code>origin</code> remote (your team’s repository): <code>git push origin comp423/ex01-pomodoro-frontend</code></p></li>
+<li><p>Your team will work off of a staging branch named <code>stage</code>, rather than the <code>comp423/ex01-pomodoro-frontend</code> branch. Go ahead and establish a <code>stage</code> branch locally and push it:</p>
+<ul>
+<li><code>git switch --create stage</code></li>
+<li><code>git push origin stage</code></li>
+</ul></li>
+<li><p>Only one team member needs to do complete the steps above. However, since the .env file is specific to each repository, <b>both members will need to recreate it before you can run the dev container</b>! Refer back to the docs/get_started.md file as needed.</p></li>
+</ol>
+<h2 id="github-repository-configuration">GitHub Repository Configuration</h2>
+<p>After the team repository has been initialized, setup the following repository branch settings in GitHub:</p>
+<ol type="1">
+<li>Settings</li>
+<li>General &gt; Default Branch &gt; Change Branch to <code>stage</code>
+<ul>
+<li>Press the <strong>Swap Button (not the Pencil!)</strong> and select <code>stage</code></li>
+<li>If you do not see <code>stage</code>, be sure you completed all the steps in “Initialize Team Repository”, then refresh this page and try again.</li>
+</ul></li>
+<li>Change to the Branches tab in the sidebar
+<ol start="0" type="1">
+<li>Add Branch Protection Rule to prevent any pushing to <code>comp423/ex01-pomodoro-frontend</code></li>
+<li>Branch name pattern: <code>comp423/ex01-pomodoro-frontend</code></li>
+<li>(Check) Lock branch</li>
+<li>(Check) Do not allow bypassing the above settings</li>
+<li>Save Changes with Create Button</li>
+</ol></li>
+<li>Add Branch Protection Rule to enforce a professional team workflow on <code>stage</code>
+<ol type="1">
+<li>Branch name pattern: <code>stage</code></li>
+<li>(Check) Require a pull request before merging
+<ol type="1">
+<li>(Check) Require approvals: 1 required</li>
+<li>(Check) Dismiss stale pull request approvals when new commits are pushed</li>
+<li>(Check) Require approval of the most recent reviewable push</li>
+</ol></li>
+<li>(Check) Require conversation resolution before merging</li>
+<li>(Check) Require linear history</li>
+<li>(Check) Do not allow bypassing the above settings</li>
+<li>Save Changes</li>
+</ol></li>
+</ol>
+</div>
+
+       
+
+    </div> 
+
+    <div class="authors-box bg-light mt-4 py-3 ps-4">
+      <span> Contributor(s):        Kris Jordan, Jade Keegan</span>
+    </div>
+  </div>
+  <div class='link-page mt-3 container'>
+    <footer>
+      <h6 class="text-center align-middle footer-text">&copy; 2024 <a href="https://krisjordan.com">Kris Jordan</a>
+        - <a
+          href="https://docs.google.com/forms/d/e/1FAIpQLScQMteEvnQpBfGsAYP5TpuqokQenhZUIf8CNvfAUUZEjMCWZQ/viewform?usp=sf_link">Feedback
+          Form</a>
+        - Made with 💛 in <a href="https://cs.unc.edu/">Chapel Hill</a></h6>
+    </footer>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+    crossorigin="anonymous"></script>
+
+  <!-- Load React. -->
+  <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+  <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</body>
+
+</html>

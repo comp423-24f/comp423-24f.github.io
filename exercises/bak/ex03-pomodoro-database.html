@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> EX03 - Pomodoro Timer Database - COMP423 - 23S</title>
+  <link rel="icon" type="image/png" href="/static/tabbrand.png" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="/static/styles.css?v=1725308536.0348372">
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-1 fixed-top">
+    <div class="container">
+      <a href="/" class="navbar-brand">COMP423</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navmenu">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link " href="/">agenda</a>
+          </li>
+          <li class="nav-item">
+            <a href="/support" class="nav-link">support</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div id="exercises-page" class="container">
+    <div class="row pt-4">
+      <div class="col-12">
+        <h2>EX03 - Pomodoro Timer Database</h2>
+        <hr class="title" />
+      </div>
+    </div>
+
+    <script src="/static/scripts/toggle-handler.js"></script>
+    
+    <div class="row px-4">
+        <div id="box" class="toc col-xl-3 col-lg-3 order-1 order-lg-2" role="doc-toc">
+            <div id="menu-overview" class="link-page box">
+                <button id="overview-button" class="btn btn-ov" onclick="hideshow()">Overview  <img id="button-img" class="filter-icon" src="/static/components/Itinerary/arrow-up.svg" style="height:15px; padding-left: 4px;"></button>
+                <div id="overview-links">
+                    <div id="TOC" role="doc-toc">
+                        <ul class="overview-item"><ul>
+<li><a href="#workflow-expectations">Workflow Expectations</a></li>
+<li><a href="#tasks-requirements">Tasks &amp; Requirements</a>
+<ul>
+<li><a href="#task-1-set-up-the-pomodorotimerentity">Task 1: Set Up the <code>PomodoroTimerEntity</code></a></li>
+<li><a href="#task-2-load-the-demo-data-into-the-database">Task 2: Load the Demo Data Into the Database</a></li>
+<li><a href="#task-3-complete-the-get_timers-service-method-and-run-its-tests">Task 3: Complete the <code>get_timers</code> Service Method and Run its Tests</a></li>
+<li><a href="#task-4-update-the-remaining-service-methods-and-test-them">Task 4: Update the remaining service methods and test them</a></li>
+<li><a href="#task-5-test-your-code-on-the-local-server">Task 5: Test Your Code on the Local Server</a></li>
+</ul></li>
+<li><a href="#getting-started">Getting Started</a></li>
+</ul>
+</</ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="content" class="content col-xl-9 col-lg-9 order-2 order-lg-1 pt-3"><p>In this exercise, you and a partner will extend on the Pomodoro Timer feature you worked on in EX01 and EX02 by implementing a SQLAlchemy backend database for the timers (as opposed to the list/dict in the ProductivityService). This exercise will allow you to become more familiar with SQLAlchemy and database relationships in general.</p>
+<p>You should complete <strong>ALL READINGS</strong> on SQLAlchemy before attempting to begin implementing this exercise.</p>
+<p>Be sure to scan the full write up (especially the technical requirements) before you begin writing code to ensure that you adhere to all of the outlined specifications.</p>
+<h2 id="workflow-expectations">Workflow Expectations</h2>
+<p>Pair Program, ideally in person, on each of the tasks. Do so in work-in-progress branches that get pushed to your team’s repository and merged back into the main branch. Each member of the pair should be the commit author for at least one of the requirements (unless there is only 1). You should create a branch per story and a commit per requirement completion. Once all requirements are complete, merge the task’s commits back into stage.</p>
+<p>Once finished with a story, the “driving” partner should create a pull request for the completion of the story, and the “navigating” partner should review it and merge it into main via GitHub’s interface. Each partner should create at least two pull requests, and each partner must merge two pull requests from the other partner. For reference on pull requests see <a href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request">Creating a pull request</a> and <a href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/incorporating-changes-from-a-pull-request/merging-a-pull-request">merging a pull request</a>.</p>
+<hr />
+<h2 id="tasks-requirements">Tasks &amp; Requirements</h2>
+<p>For this exercise, there are a series of tasks you will need to complete <em>in order</em>. Make sure to read the instructions carefully.</p>
+<p>Aside from adding a database to the Pomodoro Timer feature, this exercise will also modify the feature such that users are associated with specific the timers they create! Please be sure to complete the tasks below with this change in mind.</p>
+<p>If you are unsure about how to implement something, don’t forget to reference the SQLAlchemy readings and documentation before attending office hours. These resources should contain all the information you need. You are also welcome to reference similar tables in the CSXL repository, but keep in mind that <em>different features</em> are likely to have meaningfully <em>different implementations</em>!</p>
+<h3 id="task-1-set-up-the-pomodorotimerentity">Task 1: Set Up the <code>PomodoroTimerEntity</code></h3>
+<p>The first step to complete when it comes to creating a new table in SQLAlchemy is creating the entity for it. The file has already been set up for you, but it is up to you to complete the <code>TODO</code> items listed in the file.</p>
+<p>In order to fully and properly connect the new entity/table to the database, you will also need to modify the User Entity to finish establishing the one-to-many relationship between the two tables.</p>
+<p><strong>Technical Requirements:</strong></p>
+<ol type="1">
+<li>Define the main fields of the Pomodoro Timer entity. These will correspond to the model for the Pomodoro Timer!</li>
+<li>Define the foreign key to establish the one-to-many relationship between the pomodoro and user tables.</li>
+<li>Complete the <code>from_model()</code> method for the entity.
+<ul>
+<li>This method should take in a <code>PomodoroTimer</code> model convert it to the appropriate entity object.</li>
+</ul></li>
+<li>Complete the <code>to_model()</code> method for the entity.
+<ul>
+<li>This method should be called directly on the <code>PomodoroTimerEntity</code> and convert it to a <code>PomodoroTimer</code> model.</li>
+</ul></li>
+<li>In the <code>user_entity.py</code> file, define the field to establish the one-to-many relationship between the pomodoro and user tables.</li>
+</ol>
+<h3 id="task-2-load-the-demo-data-into-the-database">Task 2: Load the Demo Data Into the Database</h3>
+<p>The next task is loading the fake Pomodoro Timer data into the database for testing on your local development server. This will ensure that Productivity data is pre-populated when you go to implement service methods.</p>
+<p>The demo data is already set up for you - it’s found in the <code>backend/test/services/productivity_data.py</code> file. Pay attention to what user the fake timers are being added to!</p>
+<p><strong>Requirements:</strong></p>
+<ol type="1">
+<li>Go to the <code>backend/script/reset_demo.py</code> script file and complete the <code>TODO</code> to load the demo data into the productivity feature.</li>
+<li>Once you have completed it, run the <code>python3 -m backend.script.reset_demo</code> script to ensure it works and loaded the data.</li>
+</ol>
+<h3 id="task-3-complete-the-get_timers-service-method-and-run-its-tests">Task 3: Complete the <code>get_timers</code> Service Method and Run its Tests</h3>
+<p>Now that we have the entity set up, we may continue on to implementing the service methods in <code>backend/services/productivity.py</code>! In this task, you will focus on just one method to complete it end-to-end. Since the API routes in <code>backend/api/productivity.py</code> simply call on the service methods, we don’t need to make any changes to the routes.</p>
+<p>However, because we would like to ensure that only the user that created the timer can view it, we do need to update the code in a few ways to allow for user-specific data querying and permissions checks.</p>
+<p>In the API routes, the first step has already been completed: adding <code>subject: User = Depends(registered_user)</code> to each of endpoint functions. In brief, <code>Depends(registered_user)</code> is a dependency injection that allows the currently logged in user to be injected and bound to the <code>subject</code> parameter. Please refer to the <code>docs/auth.md</code> docs file “Backend Routes Requiring a Registered User” section for more information about how this works!</p>
+<p>The second step is updating the service method to take in this <code>subject</code> parameter and enforce permissions as needed. You will complete this according to the <code>TODO</code>s in the service file and the requirements below.</p>
+<p>The third step is testing via Pytest tests, one which is already provided for <code>get_timers</code>, found in <code>backend/test/services/productivity_test.py</code>. You will run this test via the CLI command:</p>
+<p><code>pytest backend/test/services/productivity_test.py::test_get_timers</code></p>
+<p>The final step is validating the end-to-end route from the running web app in development.</p>
+<p><strong>Requirements:</strong></p>
+<ol type="1">
+<li>Update the <code>get_timers</code> method in <code>productivity.py</code> to take in <code>subject</code> as a parameter. Pay close attention to the order that the API routes input the parameters in. Update the docstring of each method to reflect this.</li>
+<li>Complete the implementation of the <code>get_timers</code> service method, querying the session for a user’s timers and returning a list of <code>PomodoroTimer</code> models.</li>
+<li>Run the <code>pytest</code> command above to run the pre-written test for this method. It should pass! If it does not, keep working on your implementation until it does.</li>
+<li>Finally, try running <code>honcho start</code> to bring up the dev server. Log in as Sally Student by appending <code>/auth/as/sally/111111111</code> to the <code>localhost:1560</code> path (be sure that there is nothing following the root path when you do this). There should be three test timers already populated. Authenticating as yourself, via ONYEN login, should result in no timers visible. The buttons for creating/editing/etc will not yet work, of course, because you have more implementation work in the next task.</li>
+</ol>
+<h3 id="task-4-update-the-remaining-service-methods-and-test-them">Task 4: Update the remaining service methods and test them</h3>
+<p>Now that you have completed one service method end-to-end, with tests, your job is to work through the remaining service methods in the <code>ProductivityService</code> class one-by-one using a similar process.</p>
+<p>For the next methods, there are some additional specific expectations on permissions, though! We would like to ensure that only the user that created the timer can view/edit/delete it, we do need to update the code in a few ways to allow for this permission check.</p>
+<p>You will complete this according to the <code>TODO</code>s in the service file and the requirements below.</p>
+<p><strong>Requirements:</strong></p>
+<ol type="1">
+<li>Update each of the remaining four service methods in <code>productivity.py</code> to take in <code>subject</code> as a parameter. Pay close attention to the order that the API routes input the parameters in. Update the docstring of each method to reflect this. Implement each method and run its tests as you go, with special notes on the following methods:</li>
+<li><code>get_timer</code> - Raise a <code>UserPermissionException</code> if the user attempting to get the timer with the given id is not the same as the user associated with the timer entity in the database.
+<ul>
+<li>Raise this exception as follows: <code>UserPermissionException("productivity.view", f"productivity/{timer_id}")</code>.</li>
+</ul></li>
+<li><code>create_timer</code> - Be sure the new timer created is associated with the user making the request.</li>
+<li><code>update_timer</code>
+<ol start="0" type="1">
+<li>You will need to implement two of your own unit tests in <code>productivity_test.py</code> for this service method!</li>
+<li>Refer to the testing data preloaded in the unit tests found in <code>productivity_data.py</code>. Additionally, look toward other test functions in this file for inspiration.</li>
+<li>Raise a <code>UserPermissionException</code> if the user attempting to update the timer with the given id is not the same as the user associated with the timer.
+<ul>
+<li>Raise this exception as follows: <code>UserPermissionException("productivity.update", f"productivity/{timer_id}")</code>.</li>
+</ul></li>
+</ol></li>
+<li><code>delete_timer</code> - Raise a <code>UserPermissionException</code> if the user attempting to delete the timer with the given id is not the same as the user associated with the timer.
+<ul>
+<li>Raise this exception as follows: <code>UserPermissionException("productivity.delete", f"productivity/{timer_id}")</code>.</li>
+</ul></li>
+</ol>
+<p><strong>Note:</strong></p>
+<p><code>UserPermissionException</code> is a special exception we created to handle situations where a user attempts to complete an action they do not have permission for. It takes two parameters – an action string and a resource string. As listed in the requirements, we have provided the parameters for each <code>UserPermissionException</code> you must raise. We will go over this in more detail in class, so you do not need to concern yourself with the logic behind this at the moment!</p>
+<h3 id="task-5-test-your-code-on-the-local-server">Task 5: Test Your Code on the Local Server</h3>
+<p>At this point, if you completed all the tasks above correctly, your new SQLAlchemy backend should be completely set up, your service method unit tests should be passing, and your code should work.</p>
+<p>Once you are certain your backend is set up properly, the final task is running your code on the local server to check if everything still works as expected. You can also check to ensure that timers are <em>actually</em> associated with individual users!</p>
+<p>Follow the steps below to test your code on the local server.</p>
+<ol type="1">
+<li>Run <code>python3 -m backend.script.reset_demo</code>. This will delete and recreate the database and load it with the development data defined in the repository.</li>
+<li>Run <code>honcho start</code>.</li>
+<li>Test the individual backend methods using the <code>localhost:1560/docs</code>, just as you did in EX02.</li>
+<li>As described in the <code>docs/get_started.md</code> file, you can log in as various mock users to test your code.
+<ul>
+<li>Log in as Sally Student by appending <code>/auth/as/sally/111111111</code> to the <code>localhost:1560</code> path (be sure that there is nothing following the root path when you do this). There should be three test timers already populated from Task #4. Create, edit, and delete some timers to ensure that everything is working properly.</li>
+<li>Log in as Rhonda Rhoot by appending <code>/auth/as/root/999999999</code> to the path. Note that Sally Student’s timers should not appear on Rhonda’s page! Create, edit, and delete timers.</li>
+<li>Log in as Sally Student again and ensure that Rhonda’s changes do not affect Sally’s page.</li>
+</ul></li>
+</ol>
+<p>If everything is working, congratulations! You have created a new feature for the CSXL with a fully-developed frontend and backend. Great work!</p>
+<h2 id="getting-started">Getting Started</h2>
+<ol type="1">
+<li>Find your Team Name and paired partner on the sheet: <a href="https://docs.google.com/spreadsheets/d/1uQ_LlalW6lHUZGS7HMnWtbO0t4hu2kC_WDDSa024rj0/edit?usp=sharing" class="uri">https://docs.google.com/spreadsheets/d/1uQ_LlalW6lHUZGS7HMnWtbO0t4hu2kC_WDDSa024rj0/edit?usp=sharing</a></li>
+<li>Lookup their contact information in the <a href="https://directory.unc.edu">UNC Directory</a> if you do not have it already.</li>
+<li>E-mail them, if they have not e-mailed you already, and propose some of the next possible dates and times you can get together to pair program!</li>
+<li>Once together, create your team, follow the <a href="/exercises/ex03-pomodoro-database-setup.html">set up instructions</a>, and get to work!</li>
+</ol>
+</div>
+
+       
+
+    </div> 
+
+    <div class="authors-box bg-light mt-4 py-3 ps-4">
+      <span> Contributor(s):        Jade Keegan, Kris Jordan</span>
+    </div>
+  </div>
+  <div class='link-page mt-3 container'>
+    <footer>
+      <h6 class="text-center align-middle footer-text">&copy; 2024 <a href="https://krisjordan.com">Kris Jordan</a>
+        - <a
+          href="https://docs.google.com/forms/d/e/1FAIpQLScQMteEvnQpBfGsAYP5TpuqokQenhZUIf8CNvfAUUZEjMCWZQ/viewform?usp=sf_link">Feedback
+          Form</a>
+        - Made with 💛 in <a href="https://cs.unc.edu/">Chapel Hill</a></h6>
+    </footer>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+    crossorigin="anonymous"></script>
+
+  <!-- Load React. -->
+  <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+  <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</body>
+
+</html>
