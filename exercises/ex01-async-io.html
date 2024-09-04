@@ -9,7 +9,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
-  <link rel="stylesheet" href="/static/styles.css?v=1725308537.821459">
+  <link rel="stylesheet" href="/static/styles.css?v=1725481626.172201">
 </head>
 
 <body>
@@ -82,7 +82,7 @@
 <li><p><code>package.json</code> - This file should look familiar. You will see that we have many new <code>devDependencies</code> related to getting TypeScript, Jest, Prettier, and ESLint all working properly (and together). You will see in <code>scripts</code> there are a number of additional subcommands for working with our project than: <code>test</code> (runs <code>jest</code>), <code>coverage</code> (runs test coverage report), <code>build</code>, <code>start</code>, <code>build+start</code> (builds TypeScript to JavaScipt and starts the program), <code>clean</code> (deletes the <code>dist</code> directory).</p></li>
 <li><p><code>tsconfig.json</code> - Configuration settings for TypeScript. Of note, you’ll see in <code>types</code> that both <code>node</code> and <code>jest</code> are added so that TypeScript is aware of the built-in globals of <code>node</code> and <code>jest</code>, along with their type information.</p></li>
 </ol>
-<h2 id="getting-started">5. Getting Started</h2>
+<h2 id="requirements">5. Requirements</h2>
 <p>The expected behavior of your program is as follows:</p>
 <ol type="1">
 <li>One of two subcommands is expected: <code>list</code> or <code>get</code></li>
@@ -90,50 +90,101 @@
 <li>If a subcommand other than <code>list</code> or <code>get</code> is provided, an <code>Error</code> should be thrown with a helpful message, like expectation #2.</li>
 <li>For the <code>list</code> subcommand, all organizations in the CSXL API should be printed. The output expected is one <code>($slug) $name</code> per line where <code>$slug</code> is the organization’s slug and <code>$name</code> is its name. You can see the results of this API endpoint here: <a href="https://csxl.unc.edu/api/organizations" class="uri">https://csxl.unc.edu/api/organizations</a>.</li>
 <li>For the <code>get</code> subcommand, an additional command-line argument with the <code>slug</code> of the organization is expected. If none is provided, an <code>Error</code> with a helpful message should be raised. If one is provided, you should use the API endpoint here: <a href="https://csxl.unc.edu/api/organizations/$slug" class="uri">https://csxl.unc.edu/api/organizations/$slug</a> replacing the last URL part with the slug. For example: <a href="https://csxl.unc.edu/api/organizations/unc-cs" class="uri">https://csxl.unc.edu/api/organizations/unc-cs</a>. The result of this subcommand is showing the <code>name</code>, <code>description</code>, <code>website</code>, and <code>instagram</code> of the student organization. Should a slug not exist and the API results in an error, your program should raise a custom <code>Error</code> with a helpful message.</li>
+<li>Reach 100% test coverage with <code>npm run coverage</code>. Use a console spy for detecting output. Mock <code>axios</code> for HTTP requests. More on this in an upcoming section.</li>
 </ol>
-<p>In general, we encourage you attempt to follow a rule of the <em>Single Responsibility Principle (SRP)</em>. This means that a given class or <strong>function</strong> should have only responsibility or purpose. In other words, it should have only one reason to change. Achieving this in <code>main</code> is a conceptual design challenge we encourage you to wrestle with. Two benefits in designing for the <em>Single Responsibility Principle</em> are that, one, each class or function’s corresponding unit tests become more straightforward to write and, two, you are more likely to have <em>composable pieces</em> ready for reuse than overly complex units of code.</p>
-<p><strong>Note for Windows Users: If you do not see changes automatically refreshing when you save files, try running <code>ng serve --poll=2000</code> instead.</strong></p>
-<p>Open a web browser and navigate to <code>localhost:4200</code>. You should see “My Store”, which is the starting point for Angular’s Getting Started tutorial.</p>
-<h2 id="create-a-branch-for-getting-started">7. Create a Branch for Getting Started</h2>
-<p><strong>Please note! The very specific workflow given for git branches, commits, and pushes is going to be graded and part of the submission. Be sure to complete the git steps at each section.</strong></p>
-<p>Let’s practice getting in the habbit of creating a branch for work in progress. Open a new terminal window in VSCode (look for the plus button) and try the following commands:</p>
-<ol type="1">
-<li><code>git branch getting-started</code></li>
-<li><code>git switch getting-started</code></li>
-</ol>
-<p>Notice how your shell prompt changes to reflect the branch you are working on! Woo! These two steps can be combined in a single command with a special flag of <code>switch</code>, such as <code>git switch --create &lt;new-branch&gt;</code>. In this example, the two commands could have been replaced with <code>git switch --create &lt;new-branch&gt;</code>.</p>
-<p>The official first tutorial the development team of Angular put together to give a tour of big ideas can be found here: <a href="https://angular.io/start" class="uri">https://angular.io/start</a></p>
-<p>Complete this first section on getting started, taking you to the point of listing products and seeing an alert of a product going on sale. Then, make a commit of your progress and merge it into the <code>main</code> branch.</p>
-<p>Note: If you get asked by VSCode to trust this repository in order to make changes, go ahead and do so.</p>
-<ol type="1">
-<li><code>git status</code> - Check the files changed.</li>
-<li><code>git add .</code> - In this scenario, we want to add all changed files.</li>
-<li><code>git status</code> - Confirm the files in staging/index are those we want to commit. Best practice!</li>
-<li><code>git commit -m 'Completed the Getting started section of Angular Getting Started'</code> - Create a commit</li>
-<li><code>git push origin getting-started</code> - Push your branch to your GitHub repository.</li>
-</ol>
-<p><strong>Pleae be sure you completed step 5 successfully now, and in future sections, before continuing on! You can verify via opening your GitHub project repository, navigating to its Code tab, looking for a dropdown button with the <code>main</code> branch. Click it and you should see the <code>getting-started</code> branch (and, in the following sections, their branch names, too). Notice switching between them changes the files you are browsing on GitHub.</strong></p>
-<ol start="6" type="1">
-<li><code>git switch main</code> - Back in your terminal, switch to the <code>main</code> branch’s last commit. Notice your work is gone!</li>
-<li><code>git merge getting-started</code> - Merge the <code>getting-started</code> branch into <code>main</code>. Notice, this is a Fast-forward!</li>
-<li><code>git push origin main</code> - Push your remote’s <code>main</code>, also causing it to fast-forward to the same commit as the <code>getting-started</code> branch refers to.</li>
-</ol>
-<p>The steps of this workflow may feel like a lot of overhead when working individually on a project, but practicing them now will help when it comes time <em>very soon</em> to work in pairs on projects.</p>
-<h2 id="create-a-branch-for-adding-navigation">8. Create a Branch for Adding Navigation</h2>
-<p><strong>Please note! The very specific workflow given for git branches, commits, and pushes in Section 7 is going to be graded and part of the submission. Be sure to complete those steps before continuing to this section.</strong></p>
-<p><strong>Follow the same process shown in Section 7 to create a local branch named <code>adding-navigation</code></strong>, switch to it, and complete the “Adding navigation” section of the Angular Getting Started Tutorial: <a href="https://angular.io/start/start-routing" class="uri">https://angular.io/start/start-routing</a></p>
-<p>Once you have completed this section, follow the same workflow as before of adding files, creating a commit, pushing your branch, switching back to your main branch, merging the changes in, and so on.</p>
-<p>We will look for the existance of these branches in your project’s history as part of the rubric for this exercise, so be sure to follow the steps in the previous section for each of the following sections, as well.</p>
-<h2 id="create-a-branch-for-managing-data">9. Create a Branch for Managing Data</h2>
-<p><strong>Please note! The very specific workflow given for git branches, commits, and pushes in Section 7 is going to be graded and part of the submission. Be sure to complete those steps before continuing to this section.</strong></p>
-<p><strong>Follow the same process as above to create a local branch named <code>managing-data</code></strong>, switch to it, and complete the “Managing Data” section of the Angular Getting Started Tutorial: <a href="https://angular.io/start/start-data" class="uri">https://angular.io/start/start-data</a></p>
-<p>Once you have completed this section, follow the same workflow as before of adding files, creating a commit, pushing your branch, switching back to your main branch, merging the changes in, and so on.</p>
-<h2 id="create-a-branch-for-using-forms-for-user-input">10. Create a Branch for Using forms for user input</h2>
-<p><strong>Please note! The very specific workflow given for git branches, commits, and pushes in Section 7 is going to be graded and part of the submission. Be sure to complete those steps before continuing to this section.</strong></p>
-<p><strong>Follow the same process to create a local branch named <code>forms-ui</code></strong>, switch to it, and complete the “User Forms and Input” section of the Angular Getting Started Tutorial: <a href="https://angular.io/start/start-forms" class="uri">https://angular.io/start/start-forms</a></p>
-<p>Once you have completed this section, follow the same workflow as before of adding files, creating a commit, pushing your branch, switching back to your main branch, merging the changes in, and so on.</p>
-<h2 id="great-work">Great work!</h2>
-<p>The Gradescope submission for this exercise is open and due by 11:59pm on its due date.</p>
+<h2 id="starting-with-command-line-arguments">6. Starting with Command-Line Arguments</h2>
+<p>To help you get started, we will provide some guidance on cleaning up your <code>main</code> function and corresponding tests.</p>
+<p>Go ahead and replace the logic in your program’s <code>main</code> function with the following:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a>export const main <span class="op">=</span> <span class="fu">async</span> (argv<span class="op">:</span> <span class="dt">string</span>[]) <span class="kw">=&gt;</span> {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>  const [<span class="op">,</span> <span class="op">,</span> <span class="op">...</span>args] <span class="op">=</span> argv<span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>  <span class="fu">if</span> (args<span class="op">.</span><span class="at">length</span> <span class="op">===</span> <span class="dv">0</span>) {</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a>    throw <span class="kw">new</span> <span class="fu">Error</span>(<span class="st">&quot;No subcommand provided. Expecting &#39;list&#39; or &#39;get&#39;.&quot;</span>)<span class="op">;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a>  } else {</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a>    <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(args)<span class="op">;</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a>  }</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true"></a>}<span class="op">;</span></span></code></pre></div>
+<p>For an explanation of the <code>const</code> assignment line, see <strong>Code Tour</strong> part 4 above.</p>
+<p>The <code>args</code> variable is a <code>string[]</code> that contains arguments given to the script following <code>node</code> and the <code>index.js</code> script. You can try building and running your program with the following examples to see the behavior. The lines prefixed with a <code>$</code> should be run at your DevContainer’s shell prompt:</p>
+<pre class="plaintext"><code>$ npm run build
+$ npm start
+No subcommand provided. Expecting &#39;list&#39; or &#39;get&#39;.
+$ npm start list
+[ &#39;list&#39; ]
+$ npm start get csxl
+[ &#39;get&#39;, &#39;csxl&#39; ]</code></pre>
+<p>Notice after builting, <code>npm start</code>, which runs your build program, is reasonably fast at testing out various command-line arguments. However, testing in this way is not automated. Let’s add some automated tests and demonstrate how code coverage with tests works.</p>
+<p>Open <code>test/main.spec.ts</code> and add replace the existing tests with a single test for covering the <code>throw</code> branch:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="im">import</span> { main } from <span class="st">&quot;../src/main&quot;</span><span class="op">;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a><span class="fu">describe</span>(<span class="st">&quot;main&quot;</span><span class="op">,</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a>  <span class="fu">it</span>(<span class="st">&quot;should raise an error if called without args&quot;</span><span class="op">,</span> <span class="fu">async</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a>    <span class="fu">expect</span>(() <span class="kw">=&gt;</span> <span class="fu">main</span>([<span class="st">&quot;node&quot;</span><span class="op">,</span> <span class="st">&quot;script.js&quot;</span>]))<span class="op">.</span><span class="at">rejects</span><span class="op">.</span><span class="fu">toThrow</span>()<span class="op">;</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a>  })<span class="op">;</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a>})<span class="op">;</span></span></code></pre></div>
+<p>Consider this structure. We are establishing a test suite for <code>main</code>, which is imported from our source code. We add a single test describing an expected behavior. This style of test description is idiomatic because test cases read as “main should raise an error…”.</p>
+<p>The <code>expect</code> function call is forming an <em>assertion</em> of sorts. This usage of <code>expect</code> is interesting because <code>main</code> is an <code>async</code> function, meaning it returns a <code>Promise</code>. When calling functions that return <code>Promise</code> values, the call is placed inside of an anonymous arrow function definition. Notice this is the very terse usage of arrow syntax and equivalent to writing <code>() =&gt; { return main["node", "script.js"] }</code>. Doing so allows <code>jest</code> to wait for the promise to <code>resolve</code> or <code>reject</code> and gives you a nice API for determining the result. In this case, we expect the <code>Promise</code> to <code>reject</code> because an <code>Error</code> is thrown. Hence the <code>expect(...).reject.toThrow()</code>.</p>
+<p>Try running this test with <code>npm test</code>, which, in turn, runs <code>jest</code>, our project’s unit testing framework. You should see output as follows:</p>
+<pre class="plaintext"><code> PASS  test/main.spec.ts
+  main
+    ✓ should raise an error if called without args (10 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       1 passed, 1 total
+Snapshots:   0 total
+Time:        1.339 s, estimated 2 s
+Ran all test suites.</code></pre>
+<h3 id="introducing-test-coverage">Introducing Test Coverage</h3>
+<p>Now, this tells you <em>all of your tests passed</em>, but it does not give you any assurance of your program being fully tested. Notice there is an entire branch which is untested: the <code>else</code> branch. Luckily, we have tooling to show us whether our code has full test coverage. Try the following command: <code>npm run coverage</code>. This runs <code>jest</code> with the <code>--coverage</code> option enabled. You should see output like follows:</p>
+<pre class="plaintext"><code>&gt; jest --coverage
+
+ PASS  test/main.spec.ts
+  main
+    ✓ should raise an error if called without args (12 ms)
+
+----------|---------|----------|---------|---------|-------------------
+File      | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+----------|---------|----------|---------|---------|-------------------
+All files |      80 |       50 |     100 |      80 |                   
+ main.ts  |      80 |       50 |     100 |      80 | 11                
+----------|---------|----------|---------|---------|-------------------
+Test Suites: 1 passed, 1 total
+Tests:       1 passed, 1 total
+Snapshots:   0 total
+Time:        1.523 s, estimated 2 s
+Ran all test suites.</code></pre>
+<p>Notice on <em>branches</em>, e.g. conditional <code>if</code>/<code>else</code>, the tool is telling you your tests cover <strong>50%</strong> of branches and <strong>80%</strong> of statements/lines (long lines can make single statements). In <code>main.ts</code>, notice it even tells you <em>which line(s)</em> are uncovered by your tests: line <strong>11</strong>. This corresponds to the <code>console.log(args)</code> line.</p>
+<p>Let’s try adding another test for coverage of this line. <em>Note: you will pretty quickly remove this test, and the accompanying simple behavior, because it is not part of the final program, but following along with this step is instructive in learning how to write tests with coverage for <code>console.log</code> statements.</em></p>
+<p>Add the second test, as shown below:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a><span class="fu">describe</span>(<span class="st">&quot;main&quot;</span><span class="op">,</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a>  <span class="co">/** First test should still remain here... elided for write-up purposes. */</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true"></a>  <span class="fu">it</span>(<span class="st">&quot;should log the args if called with args&quot;</span><span class="op">,</span> <span class="fu">async</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true"></a>    const logSpy <span class="op">=</span> jest<span class="op">.</span><span class="fu">spyOn</span>(<span class="bu">console</span><span class="op">,</span> <span class="st">&quot;log&quot;</span>)<span class="op">.</span><span class="fu">mockImplementation</span>(() <span class="kw">=&gt;</span> {})<span class="op">;</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true"></a>    await <span class="fu">main</span>([<span class="st">&quot;node&quot;</span><span class="op">,</span> <span class="st">&quot;script.js&quot;</span><span class="op">,</span> <span class="st">&quot;list&quot;</span>])<span class="op">;</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true"></a>    <span class="fu">expect</span>(logSpy)<span class="op">.</span><span class="fu">toHaveBeenCalledWith</span>([<span class="st">&quot;list&quot;</span>])<span class="op">;</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true"></a>  })<span class="op">;</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true"></a>})<span class="op">;</span></span></code></pre></div>
+<p>The line defining <code>logSpy</code> is quite fascinating. It’s <em>watching</em>, aka <em>spying on</em> the <code>console</code> object’s <code>log</code> method. This means it’s keeping track of calls to it and its arguments. Additionally, the chained method call is <em>replacing the standard implementation of <code>console.log</code></em> with a <code>mockImplementation</code> that is a no-op: a function literal that does nothing. This prevents the built-in implementation from running and, thus, from sending output to the terminal when <code>console.log</code> is called in your code. Very cool! This is an important unit testing concept called <em>mocking</em> we will explore further.</p>
+<p>Now when you run <code>npm test</code>, you should see results for both tests:</p>
+<pre class="plaintext"><code> PASS  test/main.spec.ts
+  main
+    ✓ should raise an error if called without args (15 ms)
+    ✓ should log the args if called with args (2 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       2 passed, 2 total</code></pre>
+<p>Additionally, try checking coverage: <code>npm run coverage</code>:</p>
+<pre class="plaintext"><code>----------|---------|----------|---------|---------|-------------------
+File      | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+----------|---------|----------|---------|---------|-------------------
+All files |     100 |      100 |     100 |     100 |                   
+ main.ts  |     100 |      100 |     100 |     100 |                   
+----------|---------|----------|---------|---------|-------------------</code></pre>
+<p>Woo! 100% coverage! Unfortunately, this program does not satisfy the <em>requirements</em> nor do your <em>tests</em> verify correctness of the requirements. In fact, the test you just added <em>should not be kept</em> because it goes against the expected behavior of your program. It was added only for this purpose of showing you <em>how</em> to test for output logged with <code>console.log</code> using a spy with mocking and to show you how test code coverage works.</p>
+<p>Go ahead and make a <code>git</code> commit by adding all of the files you have changed to git’s stage and forming a new <code>commit</code> with a meaningful message of progress (such as “Completed section 6: test coverage”). Push your work to your repository on GitHub.</p>
+<h2 id="adding-axios">7. Adding <code>axios</code></h2>
+<p>This section will be published by 9/4 at 10pm. If you’re already here, though, you can try searching your way through using the <code>axios</code> third party library with <code>npm</code> and TypeScript to get started.</p>
 </div>
             </div>
 
