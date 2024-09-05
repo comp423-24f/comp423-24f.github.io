@@ -9,7 +9,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
-  <link rel="stylesheet" href="/static/styles.css?v=1725481626.172201">
+  <link rel="stylesheet" href="/static/styles.css?v=1725510453.012562">
 </head>
 
 <body>
@@ -119,7 +119,7 @@ $ npm start get csxl
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a><span class="fu">describe</span>(<span class="st">&quot;main&quot;</span><span class="op">,</span> () <span class="kw">=&gt;</span> {</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a>  <span class="fu">it</span>(<span class="st">&quot;should raise an error if called without args&quot;</span><span class="op">,</span> <span class="fu">async</span> () <span class="kw">=&gt;</span> {</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a>    <span class="fu">expect</span>(() <span class="kw">=&gt;</span> <span class="fu">main</span>([<span class="st">&quot;node&quot;</span><span class="op">,</span> <span class="st">&quot;script.js&quot;</span>]))<span class="op">.</span><span class="at">rejects</span><span class="op">.</span><span class="fu">toThrow</span>()<span class="op">;</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a>    await <span class="fu">expect</span>(() <span class="kw">=&gt;</span> <span class="fu">main</span>([<span class="st">&quot;node&quot;</span><span class="op">,</span> <span class="st">&quot;script.js&quot;</span>]))<span class="op">.</span><span class="at">rejects</span><span class="op">.</span><span class="fu">toThrow</span>()<span class="op">;</span></span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a>  })<span class="op">;</span></span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a>})<span class="op">;</span></span></code></pre></div>
 <p>Consider this structure. We are establishing a test suite for <code>main</code>, which is imported from our source code. We add a single test describing an expected behavior. This style of test description is idiomatic because test cases read as “main should raise an error…”.</p>
@@ -183,8 +183,96 @@ All files |     100 |      100 |     100 |     100 |
 ----------|---------|----------|---------|---------|-------------------</code></pre>
 <p>Woo! 100% coverage! Unfortunately, this program does not satisfy the <em>requirements</em> nor do your <em>tests</em> verify correctness of the requirements. In fact, the test you just added <em>should not be kept</em> because it goes against the expected behavior of your program. It was added only for this purpose of showing you <em>how</em> to test for output logged with <code>console.log</code> using a spy with mocking and to show you how test code coverage works.</p>
 <p>Go ahead and make a <code>git</code> commit by adding all of the files you have changed to git’s stage and forming a new <code>commit</code> with a meaningful message of progress (such as “Completed section 6: test coverage”). Push your work to your repository on GitHub.</p>
-<h2 id="adding-axios">7. Adding <code>axios</code></h2>
-<p>This section will be published by 9/4 at 10pm. If you’re already here, though, you can try searching your way through using the <code>axios</code> third party library with <code>npm</code> and TypeScript to get started.</p>
+<h2 id="using-axios-for-typed-web-requests">7. Using <code>axios</code> for Typed Web Requests</h2>
+<p>Rather than using the built-in <code>fetch</code> function, as shown in class, we will make use of a very popular (downloaded over 40 million times in the past week!) promise-based HTTP request library called <code>axios</code>. For more detail, see its <a href="https://www.npmjs.com/package/axios">npm page</a>, <a href="https://axios-http.com/">home page</a>, and <a href="https://github.com/axios/axios">git repository</a>. It has two really nice features for us. First, it has a more ergonomic API than <code>fetch</code> and allows us to specify generic types to hint to TypeScript what the shape of the expected results are. Second, it is easy to mock in jest.</p>
+<p>The <code>axios</code> library will be needed by our built application, not just in development, so we will save it as a true dependency. Run the following command in your DevContainer:</p>
+<p><code>npm install --save axios</code></p>
+<p>Notice this changes <code>package.json</code> and <code>package-lock.json</code> with metadata that explicitly establishes this dependency. It also installed the library in <code>node_modules</code>.</p>
+<p>We will use only a small portion of the <code>axios</code> API, its <code>get</code> method for “getting” or <em>downloading</em> data from the web via a URL. The <code>get</code> method is <em>generic</em> and returns a promise whose <code>data</code> value is expected to implement the shape of the generic. That’s a lot of lingo, let’s give an example:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a><span class="im">import</span> axios from <span class="st">&quot;axios&quot;</span><span class="op">;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true"></a>interface Organization {</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true"></a>  slug<span class="op">:</span> <span class="dt">string</span><span class="op">;</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true"></a>  name<span class="op">:</span> <span class="dt">string</span><span class="op">;</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true"></a>  short_description<span class="op">:</span> <span class="dt">string</span><span class="op">;</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true"></a>  instagram<span class="op">:</span> <span class="dt">string</span><span class="op">;</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true"></a>  website<span class="op">:</span> <span class="dt">string</span><span class="op">;</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true"></a>}</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true"></a></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true"></a><span class="co">/* Later in the program... in an async function definition like `main`... */</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true"></a></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true"></a>try {</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true"></a>  const result <span class="op">=</span> await axios<span class="op">.</span><span class="fu">get</span><span class="op">&lt;</span>Organization[]<span class="op">&gt;</span>(<span class="st">&quot;https://csxl.unc.edu/api/organizations&quot;</span>)<span class="op">;</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true"></a>  const organizations<span class="op">:</span> Organization[] <span class="op">=</span> result<span class="op">.</span><span class="at">data</span><span class="op">;</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true"></a>  <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(organizations[<span class="dv">0</span>]<span class="op">.</span><span class="at">name</span>)<span class="op">;</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true"></a>} catch {</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true"></a>  throw <span class="kw">new</span> <span class="fu">Error</span>(<span class="st">&quot;Error loading organizations list.&quot;</span>)</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true"></a>}</span></code></pre></div>
+<p>Notice we established an <code>interface</code> for <code>Organization</code> that contains properties exposed by the API for each organization.</p>
+<p>Then, in the <code>try</code>/<code>catch</code>, we <code>await</code> the result of <code>axios.get()</code> thanks to the <code>Promise</code>-based nature of <code>axios</code>’s implementation. The <code>get</code> method is <em>generic</em> and in the diamond syntax we specify that the expected shape of the response will be a list of organizations. If you open <a href="https://csxl.unc.edu/api/organizations" class="uri">https://csxl.unc.edu/api/organizations</a> in a browser, you will see this is the case. (<strong>PRO TIP</strong>: Install a JSON formatter plugin in your Google Chrome to make viewing API results easier. <a href="https://chromewebstore.google.com/detail/json-formatter/bcjindcccaagfpapjjmafapmmgkkhgoa?pli=1">You can find a popular one named JSON Formatter here</a>.)</p>
+<p>The <code>result</code> object will have other HTTP response metadata we will learn about in due time. For now we only care about the <em>data</em> in the response. Notice, importantly, on the following line where the <code>organizations</code> variable is declared, we are able to explicitly type this variable as <code>Organization[]</code> and assign it <code>result.data</code> with type safety. This is thanks to the implementation of the generic <code>get</code> method of <code>axios</code>. The type specified in the diamond syntax informs the type of <code>result.data</code>.</p>
+<p>It is worth noting <strong>the generic type specified in <code>get</code> is decided <em>on trust</em> that the API actually actually returns data in this shape.</strong> In the event the API and the generic type disagree, or the API implementation changes shape and returns something of a different type in the future, you will see surprising errors at runtime! This is a concern best addressed with integration testing, outside the scope of this project. For now, trust this API returns this shape (and more!) and will not change while you are working on the project.</p>
+<p>You can use the same <code>get</code> method for integrating with the API endpoint that returns a single organization (shared in the requirements), but the generic type will be <code>Organization</code>.</p>
+<h2 id="mocking-axios-responses-in-jest-tests">8. Mocking <code>axios</code> Responses in <code>jest</code> Tests</h2>
+<p>Your implementation’s dependency on <code>axios</code> needs to be mocked in tests with two primary motivations:</p>
+<ol type="1">
+<li>We are focused on <em>unit testing</em> in this project, <em>not</em> integration testing. Unit testing requires isolating dependencies from the unit under test.</li>
+<li>Mocking “expensive” operations with side effects, such as network input/output, helps ensure unit testing is always fast and predictable. If you are working on the project and don’t have internet access <em>your tests will still run</em> even if the program itself will not in that moment.</li>
+</ol>
+<p>We are intentionally <em>not</em> providing any suggested structure to your project’s code beyond using the provided <code>main</code> function as your entrypoint. However, we <em>do</em> encourage you to take the opportunity to practice program design techniques for a well factored program, such as those you learned in COMP301. Strive to write a simple, maintainable, structured program.</p>
+<p>We will provide the following structural hint toward <code>jest</code> test organization that mocks <code>axios</code> and both spies on and mocks <code>console.log</code> to be a no-op and establishes some test data:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a><span class="im">import</span> axios from <span class="st">&quot;axios&quot;</span><span class="op">;</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true"></a>jest<span class="op">.</span><span class="fu">mock</span>(<span class="st">&quot;axios&quot;</span>)<span class="op">;</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true"></a>const organizations <span class="op">=</span> [</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true"></a>  {</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true"></a>    slug<span class="op">:</span> <span class="st">&quot;unc-cs&quot;</span><span class="op">,</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true"></a>    name<span class="op">:</span> <span class="st">&quot;Computer Science Department&quot;</span><span class="op">,</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true"></a>    short_description<span class="op">:</span> <span class="st">&quot;The Computer Science Department at UNC Chapel Hill.&quot;</span><span class="op">,</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true"></a>    instagram<span class="op">:</span> <span class="st">&quot;https://www.instagram.com/unccompsci/&quot;</span><span class="op">,</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true"></a>    website<span class="op">:</span> <span class="st">&quot;https://cs.unc.edu/&quot;</span><span class="op">,</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true"></a>  }<span class="op">,</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true"></a>  {</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true"></a>    slug<span class="op">:</span> <span class="st">&quot;csxl&quot;</span><span class="op">,</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true"></a>    name<span class="op">:</span> <span class="st">&quot;CS Experience Labs&quot;</span><span class="op">,</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true"></a>    short_description<span class="op">:</span> <span class="st">&quot;Student-centered labs for gaining experience in CS.&quot;</span><span class="op">,</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true"></a>    instagram<span class="op">:</span> <span class="st">&quot;unc&quot;</span><span class="op">,</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true"></a>    website<span class="op">:</span> <span class="st">&quot;https://csxl.unc.edu&quot;</span><span class="op">,</span></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true"></a>  }<span class="op">,</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true"></a>]<span class="op">;</span></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true"></a></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true"></a><span class="fu">describe</span>(<span class="st">&quot;some unit of code under test (e.g. main)&quot;</span><span class="op">,</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true"></a>  <span class="co">/* Mocks accessible via closure to before/after hooks and tests.*/</span></span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true"></a>  const mockAxios <span class="op">=</span> axios <span class="im">as</span> jest<span class="op">.</span><span class="at">Mocked</span><span class="op">&lt;</span>typeof axios<span class="op">&gt;;</span></span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true"></a>  let logSpy<span class="op">:</span> jest<span class="op">.</span><span class="at">SpyInstance</span><span class="op">;</span></span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true"></a></span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true"></a>  <span class="fu">beforeEach</span>(() <span class="kw">=&gt;</span> {</span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true"></a>    <span class="co">/* Setup the console spy mocks. */</span></span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true"></a>    logSpy <span class="op">=</span> jest<span class="op">.</span><span class="fu">spyOn</span>(<span class="bu">console</span><span class="op">,</span> <span class="st">&quot;log&quot;</span>)<span class="op">.</span><span class="fu">mockImplementation</span>(() <span class="kw">=&gt;</span> {})<span class="op">;</span></span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true"></a>  })<span class="op">;</span></span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true"></a></span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true"></a>  <span class="fu">afterEach</span>(() <span class="kw">=&gt;</span> {</span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true"></a>    <span class="co">/* Reset the state of all mocks. */</span></span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true"></a>    jest<span class="op">.</span><span class="fu">resetAllMocks</span>()<span class="op">;</span></span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true"></a>  })<span class="op">;</span></span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true"></a></span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true"></a>  <span class="fu">it</span>(<span class="st">&quot;should test something that depends on axios.get...&quot;</span><span class="op">,</span> <span class="fu">async</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb10-37"><a href="#cb10-37" aria-hidden="true"></a>    <span class="co">// Here we&#39;re mocking the resolved value of `get` where data is the organizations[] defined in globals </span></span>
+<span id="cb10-38"><a href="#cb10-38" aria-hidden="true"></a>    mockAxios<span class="op">.</span><span class="at">get</span><span class="op">.</span><span class="fu">mockResolvedValue</span>({ data<span class="op">:</span> organizations })<span class="op">;</span></span>
+<span id="cb10-39"><a href="#cb10-39" aria-hidden="true"></a>    <span class="co">// </span><span class="al">TODO</span><span class="co">: Call unit of code that depended on axios.get&lt;Organization[]&gt;</span></span>
+<span id="cb10-40"><a href="#cb10-40" aria-hidden="true"></a>    <span class="co">// </span><span class="al">TODO</span><span class="co">: Test return value of unit of code (or spied expectations)</span></span>
+<span id="cb10-41"><a href="#cb10-41" aria-hidden="true"></a>  })<span class="op">;</span></span>
+<span id="cb10-42"><a href="#cb10-42" aria-hidden="true"></a></span>
+<span id="cb10-43"><a href="#cb10-43" aria-hidden="true"></a>  <span class="fu">it</span>(<span class="st">&quot;should raise a nicer error when axios.get FAILS (Promise rejected)...&quot;</span><span class="op">,</span> <span class="fu">async</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb10-44"><a href="#cb10-44" aria-hidden="true"></a>    const axiosError <span class="op">=</span> <span class="kw">new</span> <span class="fu">Error</span>(<span class="st">&quot;AXIOS ERROR&quot;</span>)<span class="op">;</span></span>
+<span id="cb10-45"><a href="#cb10-45" aria-hidden="true"></a>    mockAxios<span class="op">.</span><span class="at">get</span><span class="op">.</span><span class="fu">mockRejectedValue</span>(axiosError)<span class="op">;</span></span>
+<span id="cb10-46"><a href="#cb10-46" aria-hidden="true"></a>    await <span class="fu">expect</span>(() <span class="kw">=&gt;</span> { </span>
+<span id="cb10-47"><a href="#cb10-47" aria-hidden="true"></a>      <span class="co">/* call unit under test expecting `get` to raise a nicer, human error */</span> </span>
+<span id="cb10-48"><a href="#cb10-48" aria-hidden="true"></a>    })<span class="op">.</span><span class="at">rejects</span><span class="op">.</span><span class="at">not</span><span class="op">.</span><span class="fu">toEqual</span>(axiosError)<span class="op">;</span></span>
+<span id="cb10-49"><a href="#cb10-49" aria-hidden="true"></a>  })<span class="op">;</span></span>
+<span id="cb10-50"><a href="#cb10-50" aria-hidden="true"></a></span>
+<span id="cb10-51"><a href="#cb10-51" aria-hidden="true"></a>})<span class="op">;</span></span></code></pre></div>
+<p>From here you should be off and on your way implementing the requirements in Section #5 and testing all unit(s) in your program. Don’t forget to isolate dependencies of your units under test! Try to write a well factored program with simple unit(s)! Remember: the simpler your units of code, the simpler your unit testing job to verify them is.</p>
 </div>
             </div>
 
