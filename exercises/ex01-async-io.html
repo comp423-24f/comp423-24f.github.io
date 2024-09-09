@@ -9,7 +9,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
-  <link rel="stylesheet" href="/static/styles.css?v=1725654400.9836721">
+  <link rel="stylesheet" href="/static/styles.css?v=1725905996.8127964">
 </head>
 
 <body>
@@ -266,12 +266,13 @@ All files |     100 |      100 |     100 |     100 |
 <span id="cb10-43"><a href="#cb10-43" aria-hidden="true"></a>  <span class="fu">it</span>(<span class="st">&quot;should raise a nicer error when axios.get FAILS (Promise rejected)...&quot;</span><span class="op">,</span> <span class="fu">async</span> () <span class="kw">=&gt;</span> {</span>
 <span id="cb10-44"><a href="#cb10-44" aria-hidden="true"></a>    const axiosError <span class="op">=</span> <span class="kw">new</span> <span class="fu">Error</span>(<span class="st">&quot;AXIOS ERROR&quot;</span>)<span class="op">;</span></span>
 <span id="cb10-45"><a href="#cb10-45" aria-hidden="true"></a>    mockAxios<span class="op">.</span><span class="at">get</span><span class="op">.</span><span class="fu">mockRejectedValue</span>(axiosError)<span class="op">;</span></span>
-<span id="cb10-46"><a href="#cb10-46" aria-hidden="true"></a>    await <span class="fu">expect</span>(() <span class="kw">=&gt;</span> { </span>
-<span id="cb10-47"><a href="#cb10-47" aria-hidden="true"></a>      <span class="co">/* call unit under test expecting `get` to raise a nicer, human error */</span> </span>
-<span id="cb10-48"><a href="#cb10-48" aria-hidden="true"></a>    })<span class="op">.</span><span class="at">rejects</span><span class="op">.</span><span class="at">not</span><span class="op">.</span><span class="fu">toEqual</span>(axiosError)<span class="op">;</span></span>
-<span id="cb10-49"><a href="#cb10-49" aria-hidden="true"></a>  })<span class="op">;</span></span>
-<span id="cb10-50"><a href="#cb10-50" aria-hidden="true"></a></span>
-<span id="cb10-51"><a href="#cb10-51" aria-hidden="true"></a>})<span class="op">;</span></span></code></pre></div>
+<span id="cb10-46"><a href="#cb10-46" aria-hidden="true"></a>    await <span class="fu">expect</span>(<span class="fu">async</span> () <span class="kw">=&gt;</span> { </span>
+<span id="cb10-47"><a href="#cb10-47" aria-hidden="true"></a>      <span class="co">/* call unit under test expecting `get` to raise a nicer, human error */</span></span>
+<span id="cb10-48"><a href="#cb10-48" aria-hidden="true"></a>      <span class="co">/* if a function is async, be sure to await its call */</span></span>
+<span id="cb10-49"><a href="#cb10-49" aria-hidden="true"></a>    })<span class="op">.</span><span class="at">rejects</span><span class="op">.</span><span class="at">not</span><span class="op">.</span><span class="fu">toEqual</span>(axiosError)<span class="op">;</span></span>
+<span id="cb10-50"><a href="#cb10-50" aria-hidden="true"></a>  })<span class="op">;</span></span>
+<span id="cb10-51"><a href="#cb10-51" aria-hidden="true"></a></span>
+<span id="cb10-52"><a href="#cb10-52" aria-hidden="true"></a>})<span class="op">;</span></span></code></pre></div>
 <p>From here you should be off and on your way implementing the requirements in Section #5 and testing all unit(s) in your program. Don’t forget to isolate dependencies of your units under test! Try to write a well factored program with simple unit(s)! Remember: the simpler your units of code, the simpler your unit testing job to verify them is.</p>
 </div>
             </div>
