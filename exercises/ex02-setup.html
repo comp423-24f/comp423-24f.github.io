@@ -4,12 +4,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title> EX01 Pomodoro Frontend Setup - COMP423 - 23S</title>
+  <title> EX02 Angular Todo Frontend Setup - COMP423 - 23S</title>
   <link rel="icon" type="image/png" href="/static/tabbrand.png" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
-  <link rel="stylesheet" href="/static/styles.css?v=1726509275.3084574">
+  <link rel="stylesheet" href="/static/styles.css?v=1726511665.2388546">
 </head>
 
 <body>
@@ -36,7 +36,7 @@
   <div id="exercises-page" class="container">
     <div class="row pt-4">
       <div class="col-12">
-        <h2>EX01 Pomodoro Frontend Setup</h2>
+        <h2>EX02 Angular Todo Frontend Setup</h2>
         <hr class="title" />
       </div>
     </div>
@@ -50,82 +50,81 @@
                 <div id="overview-links">
                     <div id="TOC" role="doc-toc">
                         <ul class="overview-item"><ul>
-<li><a href="#initialize-the-csxl-repository">Initialize The CSXL Repository</a></li>
-<li><a href="#setup-team-on-github-classroom">Setup Team on GitHub Classroom</a></li>
-<li><a href="#add-team-remote-to-csxl-repository">Add Team Remote to CSXL Repository</a></li>
-<li><a href="#github-repository-configuration">GitHub Repository Configuration</a></li>
+<li><a href="#initialize-the-starter-repository">Initialize The Starter Repository</a></li>
+<li><a href="#team-member-0.-setup-team-on-github-classroom-and-configure-remotesbranches">Team Member 0. Setup Team on GitHub Classroom and Configure Remotes/Branches</a></li>
+<li><a href="#team-member-1.-configure-remotesbranches">Team Member 1. Configure Remotes/Branches</a></li>
 </ul>
 </</ul>
                     </div>
                 </div>
             </div>
         </div>
-        <div id="content" class="content col-xl-9 col-lg-9 order-2 order-lg-1 pt-3"><h2 id="initialize-the-csxl-repository">Initialize The CSXL Repository</h2>
-<p>On your host machine, as was started in class, follow these instructions:</p>
+        <div id="content" class="content col-xl-9 col-lg-9 order-2 order-lg-1 pt-3"><h2 id="initialize-the-starter-repository">Initialize The Starter Repository</h2>
+<p>On your <em>HOST</em> machine, both members of the team should follow these instructions together:</p>
 <ol type="1">
 <li>From VSCode, open a new, blank VSCode Window on your HOST machine</li>
-<li>Command Palette &gt; Git Clone: https://github.com/unc-csxl/csxl.unc.edu.git</li>
+<li>Command Palette &gt; Git Clone: https://github.com/comp423-24f/ex02-starter.git</li>
 <li>After cloning DO NOT follow pop-up suggestions! FIRST:
 <ol type="a">
-<li>Open docs/get_started.md</li>
+<li>Open and read/follow steps in the <code>docs</code> directory’s <code>get_started.md</code> file</li>
 <li>Before Starting a DevContainer: Establish a <code>.env</code> File in <code>backend/</code></li>
 </ol></li>
-<li>After starting the container, complete the getting started steps</li>
+<li>After starting the container, complete the getting started steps in section “Start the DevContainer” all the way up to “Development Data”</li>
 </ol>
-<h2 id="setup-team-on-github-classroom">Setup Team on GitHub Classroom</h2>
-<p><strong>ONLY ONE MEMBER OF YOUR PAIRING NEEDS TO FOLLOW STEP #1</strong></p>
+<h2 id="team-member-0.-setup-team-on-github-classroom-and-configure-remotesbranches">Team Member 0. Setup Team on GitHub Classroom and Configure Remotes/Branches</h2>
+<p><strong>ONLY ONE MEMBER OF YOUR PAIRING NEEDS TO FOLLOW THESE STEPS</strong></p>
 <ol type="1">
-<li><p>One member of the team should carefully create the team. Create a team named “EX02 NN” where the NN is the TEAM NUMBER of <a href="https://docs.google.com/spreadsheets/d/1qOQBoW14fU1PcLvG1U3waxvxFo1b1KsBnkePhAM90x0/edit?gid=544403703#gid=544403703">your group on the pairings page linked to here</a>. Check it closely! Accept the assignment on behalf of your team and, after refreshing, it will create a repository at <code>github.com/comp423-24f/ex02-angular-todo</code>. Assignment acceptance link: <a href="https://classroom.github.com/a/w5UXJWBQ" class="uri">https://classroom.github.com/a/w5UXJWBQ</a></p></li>
-<li><p>After <em>ONE MEMBER OF THE TEAM</em> has completed Step 1, all other members of the team should join the correct team and accept the assignment to be added to the repository. Assignment acceptance link: <a href="https://classroom.github.com/a/w5UXJWBQE" class="uri">https://classroom.github.com/a/w5UXJWBQE</a></p></li>
+<li>One member of the team should carefully create the team. Create a team named “EX02 NN” where the NN is the TEAM NUMBER of <a href="https://docs.google.com/spreadsheets/d/1qOQBoW14fU1PcLvG1U3waxvxFo1b1KsBnkePhAM90x0/edit?gid=544403703#gid=544403703">your group on the pairings page linked to here</a>. Check it closely! Accept the assignment on behalf of your team and, after refreshing, it will create a repository at a location like <code>github.com/comp423-24f/ex02-angular-todo-team11</code>. Assignment acceptance link: <a href="https://classroom.github.com/a/w5UXJWBQ" class="uri">https://classroom.github.com/a/w5UXJWBQ</a></li>
+<li>“Rename” the <code>origin</code> remote repository to <code>upstream</code>:
+<ul>
+<li><code>git remote rm origin</code></li>
+<li><code>git remote add upstream https://github.com/comp423-24f/ex02-starter.git</code></li>
+</ul></li>
+<li>Fetch upstream branches:
+<ul>
+<li><code>git fetch upstream</code></li>
+</ul></li>
+<li>Switch to the <code>ex02-blank</code> starter branch, then create a branch named <code>ex02</code> at this point where you will do your work:
+<ul>
+<li><code>git switch ex02-blank</code> (This should not error out! If it does, check prior steps. You should <em>not</em> manually create this branch.)</li>
+<li><code>git switch --create ex02</code></li>
+</ul></li>
+<li>Add <code>origin</code> remote to refer to your team project:
+<ul>
+<li><code>git remote add origin [INSERT YOUR TEAM'S REPOSITORY URL FROM GITHUB HERE]</code></li>
+</ul></li>
+<li>Push your <code>ex02</code> branch to your GitHub repository (now the remote named <code>origin</code>):
+<ul>
+<li><code>git push origin ex02</code></li>
+</ul></li>
+<li>Open GitHub to your team’s repository and confirm that a branch named <code>ex02</code> was pushed! You should see the last commit made by <code>ajaygandecha</code> and <code>krisjordan</code> with a commit ID hash prefix of <code>9661663</code>.</li>
+<li>You can also view this commit locally: <code>git log -1</code></li>
 </ol>
-<h2 id="add-team-remote-to-csxl-repository">Add Team Remote to CSXL Repository</h2>
+<h2 id="team-member-1.-configure-remotesbranches">Team Member 1. Configure Remotes/Branches</h2>
+<p><strong>Only the member of the team who <em>did not</em> complete the steps above, should complete these steps.</strong></p>
+<p>After <em>YOUR TEAMMATE</em> has completed their steps above, you should join the correct team and accept the assignment. This will add you to your team’s repository on GitHub. Assignment acceptance link: <a href="https://classroom.github.com/a/w5UXJWBQE" class="uri">https://classroom.github.com/a/w5UXJWBQE</a> Then continue with your local repository setup:</p>
 <ol type="1">
-<li><p>Be sure to clone into your team assignment repository! From this point onward, you should only be working in that repo, not the “main” CSXL repo.</p></li>
-<li><p>In a terminal from the VSCode Devcontainer, let’s reconfigure our remotes: A. <code>git remote rm origin</code> - Removes the csxl origin remote B. <code>get remote add origin &lt;your team repo here&gt;</code> - Adds your team’s repo as the new origin C. <code>git push origin main</code> - Pushes to your team remo’s main branch (You should now see code show up on GitHub in your team project repo) D. <code>git remote add upstream https://github.com/unc-csxl/csxl.unc.edu.git</code> - Adds</p></li>
-<li><p>Fetch all branches from <code>upstream</code> and checkout:</p>
+<li>“Rename” the <code>origin</code> remote repository to <code>upstream</code>:
 <ul>
-<li><code>get fetch --all</code></li>
-<li><code>git checkout --track upstream/comp423/ex01-pomodoro-frontend</code></li>
+<li><code>git remote rm origin</code></li>
+<li><code>git remote add upstream https://github.com/comp423-24f/ex02-starter.git</code></li>
 </ul></li>
-<li><p>Push the <code>comp423/ex01-pomodoro-frontend</code> branch to the <code>origin</code> remote (your team’s repository): <code>git push origin comp423/ex01-pomodoro-frontend</code></p></li>
-<li><p>Your team will work off of a staging branch named <code>stage</code>, rather than the <code>comp423/ex01-pomodoro-frontend</code> branch. Go ahead and establish a <code>stage</code> branch locally and push it:</p>
+<li>Add <code>origin</code> remote to refer to your team project:
 <ul>
-<li><code>git switch --create stage</code></li>
-<li><code>git push origin stage</code></li>
+<li><code>git remote add origin [INSERT YOUR TEAM'S REPOSITORY URL FROM GITHUB HERE]</code></li>
 </ul></li>
-<li><p>Only one team member needs to do complete the steps above. However, since the .env file is specific to each repository, <b>both members will need to recreate it before you can run the dev container</b>! Refer back to the docs/get_started.md file as needed.</p></li>
-</ol>
-<h2 id="github-repository-configuration">GitHub Repository Configuration</h2>
-<p>After the team repository has been initialized, setup the following repository branch settings in GitHub:</p>
-<ol type="1">
-<li>Settings</li>
-<li>General &gt; Default Branch &gt; Change Branch to <code>stage</code>
+<li>Fetch your team’s branches:
 <ul>
-<li>Press the <strong>Swap Button (not the Pencil!)</strong> and select <code>stage</code></li>
-<li>If you do not see <code>stage</code>, be sure you completed all the steps in “Initialize Team Repository”, then refresh this page and try again.</li>
+<li><code>git fetch origin</code></li>
 </ul></li>
-<li>Change to the Branches tab in the sidebar
-<ol start="0" type="1">
-<li>Add Branch Protection Rule to prevent any pushing to <code>comp423/ex01-pomodoro-frontend</code></li>
-<li>Branch name pattern: <code>comp423/ex01-pomodoro-frontend</code></li>
-<li>(Check) Lock branch</li>
-<li>(Check) Do not allow bypassing the above settings</li>
-<li>Save Changes with Create Button</li>
-</ol></li>
-<li>Add Branch Protection Rule to enforce a professional team workflow on <code>stage</code>
-<ol type="1">
-<li>Branch name pattern: <code>stage</code></li>
-<li>(Check) Require a pull request before merging
-<ol type="1">
-<li>(Check) Require approvals: 1 required</li>
-<li>(Check) Dismiss stale pull request approvals when new commits are pushed</li>
-<li>(Check) Require approval of the most recent reviewable push</li>
-</ol></li>
-<li>(Check) Require conversation resolution before merging</li>
-<li>(Check) Require linear history</li>
-<li>(Check) Do not allow bypassing the above settings</li>
-<li>Save Changes</li>
-</ol></li>
+<li>Switch to your team’s <code>ex02</code> branch:
+<ul>
+<li><code>git switch ex02</code></li>
+</ul></li>
+<li>Confirm the correct state of your repository:
+<ul>
+<li><code>git log -1</code> should show a commit with message “Todo Feature Setup”.</li>
+</ul></li>
 </ol>
 </div>
 
