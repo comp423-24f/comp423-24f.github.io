@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> EX02 - Angular Todo - COMP423 - 23S</title>
+  <link rel="icon" type="image/png" href="/static/tabbrand.png" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="/static/styles.css?v=1726508401.6856534">
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-1 fixed-top">
+    <div class="container">
+      <a href="/" class="navbar-brand">COMP423</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navmenu">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link " href="/">agenda</a>
+          </li>
+          <li class="nav-item">
+            <a href="/support" class="nav-link">support</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div id="exercises-page" class="container">
+    <div class="row pt-4">
+      <div class="col-12">
+        <h2>EX02 - Angular Todo</h2>
+        <hr class="title" />
+      </div>
+    </div>
+
+    <script src="/static/scripts/toggle-handler.js"></script>
+    
+    <div class="row px-4">
+        <div id="box" class="toc col-xl-3 col-lg-3 order-1 order-lg-2" role="doc-toc">
+            <div id="menu-overview" class="link-page box">
+                <button id="overview-button" class="btn btn-ov" onclick="hideshow()">Overview  <img id="button-img" class="filter-icon" src="/static/components/Itinerary/arrow-up.svg" style="height:15px; padding-left: 4px;"></button>
+                <div id="overview-links">
+                    <div id="TOC" role="doc-toc">
+                        <ul class="overview-item"><ul>
+<li><a href="#set-up">Set Up</a></li>
+<li><a href="#general-exercise-information">General Exercise Information</a>
+<ul>
+<li><a href="#commit-expectations">Commit Expectations</a></li>
+<li><a href="#gptai-usage-policy">GPT/AI Usage Policy</a></li>
+</ul></li>
+<li><a href="#step-1-understanding-the-existing-to-do-page-component">Step 1: Understanding the Existing To-Do Page Component</a>
+<ul>
+<li><a href="#component-decorator">Component Decorator</a></li>
+<li><a href="#routing">Routing</a></li>
+<li><a href="#form-control">Form Control</a></li>
+<li><a href="#constructor">Constructor</a></li>
+</ul></li>
+<li><a href="#step-2-understanding-the-to-do-service">Step 2: Understanding the To-Do Service</a>
+<ul>
+<li><a href="#injectable-decorator">Injectable Decorator</a></li>
+<li><a href="#writable-signal">Writable Signal</a></li>
+<li><a href="#current-index">Current Index</a></li>
+</ul></li>
+<li><a href="#step-4-model-the-data">Step 4: Model the Data</a>
+<ul>
+<li><a href="#commit"><em>COMMIT!</em></a></li>
+</ul></li>
+<li><a href="#step-5-implement-functionality-to-add-to-do-list-items">Step 5: Implement Functionality to Add To-Do List Items</a>
+<ul>
+<li><a href="#service-method">Service Method</a></li>
+<li><a href="#component-method">Component Method</a></li>
+<li><a href="#html-template">HTML Template</a></li>
+<li><a href="#test-your-code">Test Your Code</a></li>
+<li><a href="#commit-1"><em>COMMIT!</em></a></li>
+<li><a href="#further-debugging-suggestions">Further Debugging Suggestions</a></li>
+</ul></li>
+<li><a href="#step-6-implement-functionality-to-readview-to-do-list-items">Step 6: Implement Functionality to Read/View To-Do List Items</a>
+<ul>
+<li><a href="#for-and-empty-blocks"><span class="citation" data-cites="for">@for</span> and <span class="citation" data-cites="empty">@empty</span> Blocks</a></li>
+<li><a href="#material-ui-components">Material UI Components</a></li>
+<li><a href="#commit-2"><em>COMMIT!</em></a></li>
+</ul></li>
+<li><a href="#step-7-implement-the-functionality-to-update-and-delete-to-do-list-items">Step 7: Implement the Functionality to Update and Delete To-Do List Items</a>
+<ul>
+<li><a href="#commit-3"><em>COMMIT!</em></a></li>
+</ul></li>
+<li><a href="#step-8-style-the-component">Step 8: Style the Component</a>
+<ul>
+<li><a href="#commit-4"><em>COMMIT!</em></a></li>
+</ul></li>
+<li><a href="#step-9-view-your-work">Step 9: View Your Work!</a></li>
+<li><a href="#submission">Submission</a></li>
+</ul>
+</</ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="content" class="content col-xl-9 col-lg-9 order-2 order-lg-1 pt-3"><p>Welcome to COMP 423 - Foundations of Software Engineering! The goal of this assignment is to help you get acclimated to Angular and TypeScript as a framework, as well as the general structure of and best practices for the CSXL repository. To do this, we will be guiding you through the creation of a simple “To-Do List” component for the CSXL website.</p>
+<p>Although the assignment itself is unique to our course, the content will loosely follow <a href="https://angular.dev/tutorials/learn-angular/1-components-in-angular">Angular’s official “Getting Started” tutorial</a> and draw from the <a href="https://angular.dev/overview">official Angular documentation</a>. Text used from this tutorial/docs will be indicated in blockquotes.</p>
+<p>While our TAs are happy to assist as needed in Office Hours, we also highly recommend that you search the documentation links provided first! Being able to parse through and understand docs is an important skill to practice as a software engineer. We also recommend that you seek out documentation for other concepts we don’t explicitly describe/link to. Angular’s documentation is very well-written and quite thorough!</p>
+<p>Now, let’s get started!</p>
+<h2 id="set-up">Set Up</h2>
+<p>TODO: Link to setup instructions! (Kris is working on rn.)</p>
+<p>Please be sure to follow these steps very carefully! It is important that you get this set up right to ensure you can complete the assignment.</p>
+<ol type="1">
+<li>Clone the assignment repository (link TBA) through Github.</li>
+<li>Open the repository in VSCode.</li>
+<li>In the <code>workspace/docs</code> folder, you will find a file called <code>get_started.md</code>. Please follow the instructions in this file to set up your Docker environment.
+<ol type="a">
+<li>The most important step is to go into the existing <code>workspace/backend</code> folder and create the <code>.env</code> file. Otherwise, your Dev Container will not load.</li>
+<li>Note that it may take a while initially to build the Dev Container since this is your first time setting up the container, so don’t be worried if it takes several minutes!</li>
+</ol></li>
+<li>Once your container builds, be sure to also run <code>honcho start</code> and open <code>localhost:1560</code> in your browser to view the application if you haven’t already.</li>
+</ol>
+<p><em>Note</em>: If you completely close VSCode while working on the assignment over a few days, you may need to repeat the <code>npm install</code> step and backend reset.</p>
+<h2 id="general-exercise-information">General Exercise Information</h2>
+<h3 id="commit-expectations">Commit Expectations</h3>
+<p>We expect you to commit after completing “significant” pieces of functionality. For this assignment, we will explicitly describe when and what you need to commit so you can get a feel for standard commit practice. You may add extra commits if you wish to, but you must have the commits from the write up at minimum.</p>
+<p>In the future, we won’t expect specific commits as we will not tell you where to commit, but we will still ensure that good practices are followed.</p>
+<p>If you need a refresher on how to commit code, read the basic steps below:</p>
+<ol type="1">
+<li><code>git add [file]</code> or <code>git add .</code> when adding all files to stage</li>
+<li><code>git status</code> - confirm files in stage and branch are correct</li>
+<li><code>git commit -m "Write commit message here"</code> - form a commit</li>
+</ol>
+<h3 id="gptai-usage-policy">GPT/AI Usage Policy</h3>
+<p>We strongly discourage using ChatGPT or other AI assistants when working on this assignment. While it is okay to use AI for conceptual questions, we recommend that you practice your ability to find and understand documentation on your own - ChatGPT is sometimes inaccurate, and it often doesn’t have knowledge of the design patterns we prefer you to use.</p>
+<p>Aside from conceptual help, however, you should <em>not</em> use code sourced from ChatGPT/AI, as this is an Academic Honor Violation. <em>All code written must be your original work.</em></p>
+<h2 id="step-1-understanding-the-existing-to-do-page-component">Step 1: Understanding the Existing To-Do Page Component</h2>
+<p>Open the <code>frontent/src/app/todo/todo-page/todo-page.component.ts</code> file. This is a <em>component</em>. (Pro-tip: In VSCode try using fuzzy finding by pressing Command+P on macOS or Control+P on Windows and typing <code>todo-page</code> to quickly find the file and open it!)</p>
+<blockquote>
+<p>Components are the foundational building blocks for any Angular application. Each component has three parts:</p>
+<ul>
+<li>TypeScript class</li>
+<li>HTML template</li>
+<li>CSS styles</li>
+</ul>
+</blockquote>
+<p>The TypeScript class contains functionality and dependencies for your file. In a very basic way, it’s similar to the Java classes you created in COMP 301, which contained variables and methods to be used for your “features”.</p>
+<p>The HTML template contains the structure of the web page, while the CSS styles sheet contains the styling of the page.</p>
+<h3 id="component-decorator">Component Decorator</h3>
+<p>In our file, after the import statements (which allow you to use functionality from other files in the directory), you will notice the following code:</p>
+<pre><code>@Component({
+  selector: &#39;app-todo-page&#39;,
+  templateUrl: &#39;./todo-page.component.html&#39;,
+  styleUrl: &#39;./todo-page.component.css&#39;
+})</code></pre>
+<blockquote>
+<p>[This] marks a class as an Angular component and provides configuration metadata that determines how the component should be processed, instantiated, and used at runtime.</p>
+</blockquote>
+<p>The <code>templateUrl</code> corresponds to the path to the HTML template file. The <code>styleUrl</code> contains the path(s) to the CSS stylesheets. Remember, if you do not link your HTML/CSS files through this decorator, they will not be attached to the component!</p>
+<h3 id="routing">Routing</h3>
+<p>Inside the component class, you will see the following route defined:</p>
+<pre><code>public static Route = {
+  path: &#39;&#39;,
+  title: &#39;My To-Dos&#39;,
+  component: TodoPageComponent
+};</code></pre>
+<p>This route defines how you access the component in the web application. The <code>path</code> corresponds to the URL that attached to the base routes. The <code>component</code> corresponds to the component (along with the HTML/CSS attached with it) that you want to display when you navigate to this route. The <code>title</code> is not a necessary property on a route, but it allows you to give names that can appear in the application when you navigate to a certain component.</p>
+<p>On your localhost navigate to the empty To-Do Page (which corresponds to the component you currently have opened) using the button on the side menu. You will notice that the URL is <code>/todo</code> rather than nothing, as the empty <code>path</code> in our defined route may suggest. This is because we have a “base” route defined in a separate file!</p>
+<p>If you go to the <code>app-routing.module.ts</code> file and scroll down a bit, you will see the following code:</p>
+<pre><code>{
+  path: &#39;todo&#39;,
+  title: &#39;To-Do&#39;,
+  loadChildren: () =&gt; import(&#39;./todo/todo.module&#39;).then((m) =&gt; m.TodoModule)
+}</code></pre>
+<p>You will see here that this file loads the todo module and each of its children under the <code>path</code> “todo”. It is necessary that routes are defined in this <code>app-routing</code> module, but Angular allows you to establish “child” routing modules to better abstract features from one another. More on this in future assignments once we add more components for this To-Do List feature!</p>
+<h3 id="form-control">Form Control</h3>
+<p>The final bit of code we would like to explain is the Form Control.</p>
+<pre><code>public newItemFormControl: FormControl&lt;string&gt; = new FormControl(&#39;&#39;);</code></pre>
+<p>This Form Control property will be linked to the <code>mat-form-field</code> in the To-Do Page HTML file.</p>
+<blockquote>
+<p>Tracks the value and validation status of an individual form control.<code>FormControl</code> takes a single generic argument, which describes the type of its value.</p>
+</blockquote>
+<h3 id="constructor">Constructor</h3>
+<p>Similar to Java, Angular classes also use a <code>constructor</code> that is automatically invoked when a new instance of the component is constructed.</p>
+<pre><code>constructor(protected todoService: TodoService) {}</code></pre>
+<p>The constructor for the To-Do Page doesn’t contain any functionality inside it. Notice <code>todoService</code> is being declared as a <em>protected instance variable</em> here. It is automatically initialized thanks to TypeScript constructor definition conventions. The actual value assigned to <code>todoService</code> will be managed by Angular’s <em>dependency injection</em>. This is the preferred way to access service classes and their service methods. Methods can be called from the service using dot notation: <code>this.todoService.method()</code>.</p>
+<h2 id="step-2-understanding-the-to-do-service">Step 2: Understanding the To-Do Service</h2>
+<p>Before you begin writing code, it’s important to understand the other half of Angular components as we write them: Services.</p>
+<p>Services contain business logic that may be shared across many components through dependency injection.</p>
+<p>To begin, open the the <code>todo.service.ts</code> file.</p>
+<h3 id="injectable-decorator">Injectable Decorator</h3>
+<p>Similar to the component, our service contains a decorator as well.</p>
+<pre><code>@Injectable({
+  providedIn: &#39;root&#39;
+})</code></pre>
+<blockquote>
+<p>[This] marks a class as available to be provided and injected as a dependency.</p>
+</blockquote>
+<h3 id="writable-signal">Writable Signal</h3>
+<p>As indicated in the TODO comment, we would like you to use a <code>WritableSignal</code>. Please refer back to the <a href="https://angular.dev/guide/signals">documentation</a> and reading on writable signals if you are unsure how to set this up!</p>
+<h3 id="current-index">Current Index</h3>
+<p>We will use the current index as a unique identifier for each to-do list item. This also simulates how databases often manage item entries (more on this in later exercises).</p>
+<p>While most databases have an “auto-increment” functionality for numerical indices such that adding an item automatically increases the index, we don’t have that on the frontend. So, be sure to increment this value so it can be used to access items in our list properly!</p>
+<p><em>Note:</em> We cannot use the length of the list as an indicator of the max index, as we may remove items from the to-do list.</p>
+<h2 id="step-4-model-the-data">Step 4: Model the Data</h2>
+<p>Before you begin implementing the To-Do list feature, it is important to model the data you will be working with using TypeScript interfaces. Refer back to the reading about interfaces if you feel uncertain about this concept!</p>
+<p>Navigate to the <code>todo.model.ts</code> file. Complete the TODO in this file to implement the <code>ToDoListItem</code> interface.</p>
+<h3 id="commit"><em>COMMIT!</em></h3>
+<p>Add a commit message with the following text: “Implement ToDoListItem interface”.</p>
+<h2 id="step-5-implement-functionality-to-add-to-do-list-items">Step 5: Implement Functionality to Add To-Do List Items</h2>
+<p>A good practice when it comes to implementing functionality for a feature is completing each piece “atomically” and testing after you complete each piece, rather than creating each file in isolation. For a feature such as a To-Do list, a natural division is to treat each basic CRUD (create/read/update/delete) as an individual task.</p>
+<p>We will start with “create”, or adding to the to-do list!</p>
+<h3 id="service-method">Service Method</h3>
+<p>In the <code>todo.service.ts</code> file, find the method titled <code>addItem</code>. Read the docstring/TODO comments and complete the method accordingly. Remember, the To-Do item you add to your list should be modeled after the <code>ToDoListItem</code>.</p>
+<h3 id="component-method">Component Method</h3>
+<p>Go to the <code>todo-page.component.ts</code> file. Follow the TODO comments in the <code>addNewItem</code> method. Remember, the service method we created takes in the title of the To-Do item as a parameter, so you will need to retrieve that from the form control in order to pass it into service.</p>
+<p>Refer back <a href="#step-1-understanding-the-existing-to-do-page-component">Step 1</a> if you need a refresher on how the component works.</p>
+<h3 id="html-template">HTML Template</h3>
+<p>At the bottom of the <code>todo-page.component.ts</code> file, you will see a <code>mat-form-field</code> with the label “New To-Do item” and a <code>button</code> with the text “Add To-Do”. On that button, as the comment recommends, you must add <code>(click)</code> event handler to call the method to add a new item to your To-Do list.</p>
+<h4 id="form-control-property-binding">Form Control Property Binding</h4>
+<p>When implementing the <code>mat-form-field</code> functionality, you must use “property binding”, as the comment mentions.</p>
+<p>Below is a brief description of this concept. For further information, feel free to read the <a href="https://angular.dev/guide/templates/property-binding">documentation linked here</a>.</p>
+<blockquote>
+<p>Property binding in Angular enables you to set values for properties of HTML elements, Angular components and more.</p>
+<p>Use property binding to dynamically set values for properties and attributes. You can do things such as toggle button features, set image paths programmatically, and share values between components.</p>
+</blockquote>
+<h4 id="click-handling">Click Handling</h4>
+<p>If you would like more information about how the <code>(click)</code> event binding works, read the <a href="https://angular.dev/guide/templates/event-binding">documentation linked here</a>.</p>
+<p>Finally, if you have never worked with HTML before, be sure to skim this <a href="https://developer.mozilla.org/en-US/docs/Web/HTML">documentation</a>.</p>
+<h3 id="test-your-code">Test Your Code</h3>
+<p>Now, you can test the new functionality you just added! However, we currently only have one piece of the To-Do list application created, so we aren’t able to see the To-Do list item when its added. So, how do we test?</p>
+<p>Similar to other languages’ <code>print</code> statements, TypeScript has <code>console.log</code> statements that are useful for debugging and low-level testing. Instead of viewing these in the terminal you view them on the <code>localhost</code> server. On the server, open the dev tools by right-clicking and inspecting. Click on the “Console” tab. This is where <code>console.log</code> statements will be printed out!</p>
+<p>We recommend adding <code>console.log(this.todoList());</code> at the end of the <code>addItem</code> service method to test functionality. After you click your <code>add</code> button, check to make sure that the todoList is accurate and includes your new item and any other existing items.</p>
+<p>If the list seems accurate after some testing, you can now be fairly certain that your add functionality works! Remember that this is low-level, manual testing, though. So, if you find issues testing other functions further down the road, don’t completely disregard the possibility of the source being previous functionality!</p>
+<h3 id="commit-1"><em>COMMIT!</em></h3>
+<p>Add a commit message with the following text: “Implement functionality to add to-do list items”.</p>
+<h3 id="further-debugging-suggestions">Further Debugging Suggestions</h3>
+<p>If something isn’t working as expected, check out the suggestions for “standard” debug statement locations below.</p>
+<p>In the <code>addNewItem</code> method in the component file, you may add <code>console.log</code> statements in the following places listed below to debug:</p>
+<ul>
+<li><strong>Beginning of the Method:</strong> <code>console.log('addNewItem Method Called);</code>
+<ul>
+<li>This will indicate that the method has been called. If this is logged, you know that your <code>(click)</code> handling is working as expected!</li>
+</ul></li>
+<li><strong>After Retrieving To-Do item Text:</strong> <code>console.log('newItemTitle:', newItemTitle);</code>
+<ul>
+<li>This will log out the value of the <code>newItemTitle</code> variable you created. It can be used to confirm that you are retrieving the form control value correctly.</li>
+</ul></li>
+<li><strong>After Checking Conditions for Title:</strong> <code>console.log('title condition passed')</code>
+<ul>
+<li>This will confirm that the title is valid and that the service method was called.</li>
+</ul></li>
+<li><strong>After Calling the Service:</strong> <code>console.log('service method called')</code>
+<ul>
+<li>If this is logged, it confirms that the service method was fully executed.</li>
+</ul></li>
+</ul>
+<p>You can add similar <code>console.log</code> statements in the <code>addItem</code> service method to check stages of execution and variable values if necessary.</p>
+<h2 id="step-6-implement-functionality-to-readview-to-do-list-items">Step 6: Implement Functionality to Read/View To-Do List Items</h2>
+<p>Next, you should create a way to view existing To-Do list items. Unlike the add functionality, view does not explicitly require any service methods to be implemented due to our use of signals. Instead, simply go to the HTML file and complete the <code>mat-list</code>.</p>
+<h3 id="for-and-empty-blocks"><span class="citation" data-cites="for">@for</span> and <span class="citation" data-cites="empty">@empty</span> Blocks</h3>
+<p>Inside the <code>mat-list</code>, we suggest you use <code>@for</code> and <code>@empty</code> to loop through the To-Do list to display each item. Check out the <a href="https://angular.dev/api/core/@for">documentation linked here</a> if you would like to view examples of how to use these blocks.</p>
+<h3 id="material-ui-components">Material UI Components</h3>
+<p>Further, now that you are looking at more of the HTML template, you may notice that there are many elements with the <code>mat</code> prefix on them. These are Material UI components, which are special pre-built, pre-styled HTML elements that we can use in our HTML.</p>
+<p>While some applications manually create each UI element using standard HTML, our repository prefers to <em>always</em> use these existing Material UI components for consistency in styling. We have set up the file such that you do not need to build any HTML as we would like to focus on teaching you functionality. However, in the future using MatUI components will be a graded requirement, so be sure to look into the <a href="https://material.angular.io/components/categories">documentation</a> surrounding them.</p>
+<h3 id="commit-2"><em>COMMIT!</em></h3>
+<p>Add a commit message with the following text: “Implement functionality to view to-do list items”.</p>
+<h2 id="step-7-implement-the-functionality-to-update-and-delete-to-do-list-items">Step 7: Implement the Functionality to Update and Delete To-Do List Items</h2>
+<p>Finally, go through each file and follow the TODO comments to add the update and delete functionality. While you don’t necessarily need to follow the exact order we used in Step 5 (you could go HTML -&gt; service and test along the way if desired), you should implement and test each fully before moving on to the next function. Be sure to <strong><em>COMMIT</em></strong> after you finish implementing each.</p>
+<h3 id="commit-3"><em>COMMIT!</em></h3>
+<p>For update, add a commit message with the following text: “Implement functionality to update to-do list items”.</p>
+<p>For delete, add a commit message with the following text: “Implement functionality to delete to-do list items”.</p>
+<h2 id="step-8-style-the-component">Step 8: Style the Component</h2>
+<p>The last step is to style the To-Do page! If you run the localhost right now, you’ll find that the page is functional, but quite poorly organized.</p>
+<p>Basic styling to ensure that the page is somewhat user friendly is a requirement. UX is an important aspect of web development that is sometimes forgotten in favor of pure functionality!</p>
+<p>For this first assignment, we won’t be too strict about styling - just format the page so it makes <em>sense</em>. However, we highly recommend that you put some effort into styling if you have time, especially if you have little experience with CSS, as it will be considered more heavily in the future.</p>
+<p>We recommend running simple Google searches for specific styling needs (CSS can be quite expansive!), but <a href="https://developer.mozilla.org/en-US/docs/Web/CSS">here</a> is some documentation that may be useful as a starting point.</p>
+<h3 id="commit-4"><em>COMMIT!</em></h3>
+<p>This commit isn’t necessary if you decided to do your basic styling after you finished each part of the HTML template.</p>
+<p>Otherwise, add the following commit message: “Style to-do list component”.</p>
+<h2 id="step-9-view-your-work">Step 9: View Your Work!</h2>
+<p>Congratulations!! You just created your first Angular feature in the CSXL repository! Play around with the feature and admire your work. :D</p>
+<p>While you should have also been testing each method/button sa you created them, this is also a good opportunity to check for any bugs. It’s always a good idea to manually test your feature once you complete it to ensure everything works.</p>
+<h2 id="submission">Submission</h2>
+<p>Once your code is fully tested, push your code up to your Github repository using <code>git push</code>. Then, go to Gradescope and complete the exercise submission there!</p>
+<p><em>Note:</em> Be sure to record your demo video before you close out your container to avoid having to reinstall again! :)</p>
+</div>
+
+       
+
+    </div> 
+
+    <div class="authors-box bg-light mt-4 py-3 ps-4">
+      <span> Contributor(s):        Jade Keegan,        Ajay Gandecha, Kris Jordan</span>
+    </div>
+  </div>
+  <div class='link-page mt-3 container'>
+    <footer>
+      <h6 class="text-center align-middle footer-text">&copy; 2024 <a href="https://krisjordan.com">Kris Jordan</a>
+        - <a
+          href="https://docs.google.com/forms/d/e/1FAIpQLScQMteEvnQpBfGsAYP5TpuqokQenhZUIf8CNvfAUUZEjMCWZQ/viewform?usp=sf_link">Feedback
+          Form</a>
+        - Made with 💛 in <a href="https://cs.unc.edu/">Chapel Hill</a></h6>
+    </footer>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+    crossorigin="anonymous"></script>
+
+  <!-- Load React. -->
+  <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+  <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</body>
+
+</html>
