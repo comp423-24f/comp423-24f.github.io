@@ -9,7 +9,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
-  <link rel="stylesheet" href="/static/styles.css?v=1726508401.6856534">
+  <link rel="stylesheet" href="/static/styles.css?v=1726509210.0344036">
 </head>
 
 <body>
@@ -53,6 +53,7 @@
 <li><a href="#set-up">Set Up</a></li>
 <li><a href="#general-exercise-information">General Exercise Information</a>
 <ul>
+<li><a href="#pair-programming-expectations">Pair Programming Expectations</a></li>
 <li><a href="#commit-expectations">Commit Expectations</a></li>
 <li><a href="#gptai-usage-policy">GPT/AI Usage Policy</a></li>
 </ul></li>
@@ -115,14 +116,17 @@
 <li>Clone the assignment repository (link TBA) through Github.</li>
 <li>Open the repository in VSCode.</li>
 <li>In the <code>workspace/docs</code> folder, you will find a file called <code>get_started.md</code>. Please follow the instructions in this file to set up your Docker environment.
-<ol type="a">
+<ul>
 <li>The most important step is to go into the existing <code>workspace/backend</code> folder and create the <code>.env</code> file. Otherwise, your Dev Container will not load.</li>
 <li>Note that it may take a while initially to build the Dev Container since this is your first time setting up the container, so don’t be worried if it takes several minutes!</li>
-</ol></li>
+</ul></li>
 <li>Once your container builds, be sure to also run <code>honcho start</code> and open <code>localhost:1560</code> in your browser to view the application if you haven’t already.</li>
 </ol>
 <p><em>Note</em>: If you completely close VSCode while working on the assignment over a few days, you may need to repeat the <code>npm install</code> step and backend reset.</p>
 <h2 id="general-exercise-information">General Exercise Information</h2>
+<h3 id="pair-programming-expectations">Pair Programming Expectations</h3>
+<p>Both students in the pair should contribute to the assignment equally. Remember, it is critical to your success in the rest of the course that you understand the entire of the assignment, even for the portions you aren’t directly writing code for. The basic functionality and structuring we introduce in this assignment will be the foundation for future assignments and features you create!</p>
+<p>To quantify this expectation on our end for grading, <em>each student should have at least 3 commits each</em> (based on the commits we have specified). You may determine who “drives” and who “navigates” for each task. With that being said, the first and last commits are a bit smaller than the others, so you may want to ensure that the same person doesn’t do both of those.</p>
 <h3 id="commit-expectations">Commit Expectations</h3>
 <p>We expect you to commit after completing “significant” pieces of functionality. For this assignment, we will explicitly describe when and what you need to commit so you can get a feel for standard commit practice. You may add extra commits if you wish to, but you must have the commits from the write up at minimum.</p>
 <p>In the future, we won’t expect specific commits as we will not tell you where to commit, but we will still ensure that good practices are followed.</p>
