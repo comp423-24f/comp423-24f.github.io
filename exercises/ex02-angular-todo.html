@@ -9,7 +9,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
-  <link rel="stylesheet" href="/static/styles.css?v=1726865866.7364767">
+  <link rel="stylesheet" href="/static/styles.css?v=1727203033.06137">
 </head>
 
 <body>
@@ -158,7 +158,7 @@
   component: TodoPageComponent
 };</code></pre>
 <p>This route defines how you access the component in the web application. The <code>path</code> corresponds to the URL that attached to the base routes. The <code>component</code> corresponds to the component (along with the HTML/CSS attached with it) that you want to display when you navigate to this route. The <code>title</code> is not a necessary property on a route, but it allows you to give names that can appear in the application when you navigate to a certain component.</p>
-<p>On your localhost navigate to the empty To-Do Page (which corresponds to the component you currently have opened) using the button on the side menu. You will notice that the URL is <code>/todo</code> rather than nothing, as the empty <code>path</code> in our defined route may suggest. This is because we have a “base” route defined in a separate file!</p>
+<p>On your localhost navigate to the empty To-Do Page (which corresponds to the component you currently have opened) using the button on the side menu. You will notice that the URL is <code>/todo</code> rather than nothing, as the empty <code>path</code> in our defined route may suggest. This is because we have a “base” route defined in a separate file! Note that you may need to comment out some of the template code in order for the server to load since there are small pieces that are unimplemented!</p>
 <p>If you go to the <code>app-routing.module.ts</code> file and scroll down a bit, you will see the following code:</p>
 <pre><code>{
   path: &#39;todo&#39;,
@@ -206,12 +206,13 @@
 <p>We will start with “create”, or adding to the to-do list!</p>
 <h3 id="service-method">Service Method</h3>
 <p>In the <code>todo.service.ts</code> file, find the method titled <code>addItem</code>. Read the docstring/TODO comments and complete the method accordingly. Remember, the To-Do item you add to your list should be modeled after the <code>ToDoListItem</code>.</p>
+<p><strong>Note:</strong> There is a small typo in the docstring for the <code>addItem</code> method. The param for the method should be defined as <code>title</code> representing the name of the To-Do list item, NOT <code>item</code>!</p>
 <h3 id="component-method">Component Method</h3>
 <p>Go to the <code>todo-page.component.ts</code> file. Follow the TODO comments in the <code>addNewItem</code> method. Remember, the service method we created takes in the title of the To-Do item as a parameter, so you will need to retrieve that from the form control in order to pass it into service.</p>
-<p><strong>Note:</strong> There is a small typo in the docstring for the <code>addNewItem</code> method. The param for the method should be defined as <code>title</code> representing the name of the To-Do list item, NOT <code>item</code>!</p>
 <p>Refer back <a href="#step-1-understanding-the-existing-to-do-page-component">Step 1</a> if you need a refresher on how the component works.</p>
 <h3 id="html-template">HTML Template</h3>
 <p>At the bottom of the <code>todo-page.component.ts</code> file, you will see a <code>mat-form-field</code> with the label “New To-Do item” and a <code>button</code> with the text “Add To-Do”. On that button, as the comment recommends, you must add <code>(click)</code> event handler to call the method to add a new item to your To-Do list.</p>
+<p><strong>Note:</strong> There is a typo in the comments of the HTML for the add button! The text inside the button says “delete”, but it should say “add”.</p>
 <h4 id="form-control-property-binding">Form Control Property Binding</h4>
 <p>When implementing the <code>mat-form-field</code> functionality, you must use “property binding”, as the comment mentions.</p>
 <p>Below is a brief description of this concept. For further information, feel free to read the <a href="https://angular.dev/guide/templates/property-binding">documentation linked here</a>.</p>
@@ -262,7 +263,6 @@
 <p>Add a commit message with the following text: “Implement functionality to view to-do list items”.</p>
 <h2 id="step-7-implement-the-functionality-to-update-and-delete-to-do-list-items">Step 7: Implement the Functionality to Update and Delete To-Do List Items</h2>
 <p>Finally, go through each file and follow the TODO comments to add the update and delete functionality. While you don’t necessarily need to follow the exact order we used in Step 5 (you could go HTML -&gt; service and test along the way if desired), you should implement and test each fully before moving on to the next function. Be sure to <strong><em>COMMIT</em></strong> after you finish implementing each.</p>
-<p><strong>Note:</strong> There is a typo in the HTML for the delete button! The text inside the button says “add”, but it should say “delete”.</p>
 <h3 id="commit-3"><em>COMMIT!</em></h3>
 <p>For update, add a commit message with the following text: “Implement functionality to update to-do list items”.</p>
 <p>For delete, add a commit message with the following text: “Implement functionality to delete to-do list items”.</p>
