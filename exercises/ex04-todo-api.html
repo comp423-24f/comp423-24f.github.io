@@ -4,12 +4,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title> EX02 Angular Todo Frontend Setup - COMP423 - 23S</title>
+  <title> EX04 - Implementing Todo APIs - COMP423 - 23S</title>
   <link rel="icon" type="image/png" href="/static/tabbrand.png" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
-  <link rel="stylesheet" href="/static/styles.css?v=1728064758.046162">
+  <link rel="stylesheet" href="/static/styles.css?v=1728064753.8662658">
 </head>
 
 <body>
@@ -36,7 +36,7 @@
   <div id="exercises-page" class="container">
     <div class="row pt-4">
       <div class="col-12">
-        <h2>EX02 Angular Todo Frontend Setup</h2>
+        <h2>EX04 - Implementing Todo APIs</h2>
         <hr class="title" />
       </div>
     </div>
@@ -53,6 +53,7 @@
 <li><a href="#initialize-the-starter-repository">Initialize The Starter Repository</a></li>
 <li><a href="#team-member-0.-setup-team-on-github-classroom-and-configure-remotesbranches">Team Member 0. Setup Team on GitHub Classroom and Configure Remotes/Branches</a></li>
 <li><a href="#team-member-1.-configure-remotesbranches">Team Member 1. Configure Remotes/Branches</a></li>
+<li><a href="#completing-the-assignment">Completing the Assignment</a></li>
 </ul>
 </</ul>
                     </div>
@@ -63,51 +64,52 @@
 <p>On your <em>HOST</em> machine, both members of the team should follow these instructions together:</p>
 <ol type="1">
 <li>From VSCode, open a new, blank VSCode Window on your HOST machine</li>
-<li>Command Palette &gt; Git Clone: https://github.com/comp423-24f/ex02-starter.git</li>
+<li>Command Palette &gt; Git Clone: https://github.com/comp423-24f/ex04-starter.git</li>
 <li>After cloning DO NOT follow pop-up suggestions! FIRST:
 <ol type="a">
-<li>Open and read/follow steps in the <code>docs</code> directory’s <code>get_started.md</code> file</li>
-<li>Before Starting a DevContainer: Establish a <code>.env</code> File in <code>backend/</code></li>
+<li>Open and read/follow steps in the <code>docs</code> directory’s <code>get_started.md</code> file.</li>
+<li><strong>Before Starting the DevContainer</strong>: Establish a <code>.env</code> File in <code>backend/</code></li>
+<li>Once the DevContainer is installed: Run <code>pushd frontend; npm i; popd frontend</code></li>
 </ol></li>
 <li>After starting the container, complete the getting started steps in section “Start the DevContainer” all the way up to “Development Data”</li>
 </ol>
 <h2 id="team-member-0.-setup-team-on-github-classroom-and-configure-remotesbranches">Team Member 0. Setup Team on GitHub Classroom and Configure Remotes/Branches</h2>
 <p><strong>ONLY ONE MEMBER OF YOUR PAIRING NEEDS TO FOLLOW THESE STEPS</strong></p>
 <ol type="1">
-<li>One member of the team should carefully create the team. Create a team named “EX02 NN” where the NN is the TEAM NUMBER of <a href="https://docs.google.com/spreadsheets/d/1qOQBoW14fU1PcLvG1U3waxvxFo1b1KsBnkePhAM90x0/edit?gid=544403703#gid=544403703">your group on the pairings page linked to here</a>. Check it closely! Accept the assignment on behalf of your team and, after refreshing, it will create a repository at a location like <code>github.com/comp423-24f/ex02-angular-todo-team11</code>. Assignment acceptance link: <a href="https://classroom.github.com/a/w5UXJWBQ" class="uri">https://classroom.github.com/a/w5UXJWBQ</a></li>
+<li>One member of the team should carefully create the team. Create a team named “EX04 NN” where the NN is the TEAM NUMBER of <a href="">your group on the pairings page linked to here</a>. Check it closely! Accept the assignment on behalf of your team and, after refreshing, it will create a repository at a location like <code>github.com/comp423-24f/ex04-angular-todo-team&lt;your team&gt;</code>. Assignment acceptance link: &lt;&gt;</li>
 <li>“Rename” the <code>origin</code> remote repository to <code>upstream</code>:
 <ul>
 <li><code>git remote rm origin</code></li>
-<li><code>git remote add upstream https://github.com/comp423-24f/ex02-starter.git</code></li>
+<li><code>git remote add upstream https://github.com/comp423-24f/ex04-starter.git</code></li>
 </ul></li>
 <li>Fetch upstream branches:
 <ul>
 <li><code>git fetch upstream</code></li>
 </ul></li>
-<li>Switch to the <code>ex02-blank</code> starter branch, then create a branch named <code>ex02</code> at this point where you will do your work:
+<li>Switch to the <code>ex04-blank</code> starter branch, then create a branch named <code>ex04</code> at this point where you will do your work:
 <ul>
-<li><code>git switch ex02-blank</code> (This should not error out! If it does, check prior steps. You should <em>not</em> manually create this branch.)</li>
-<li><code>git switch --create ex02</code></li>
+<li><code>git switch ex04-blank</code> (This should not error out! If it does, check prior steps. You should <em>not</em> manually create this branch.)</li>
+<li><code>git switch --create ex04</code></li>
 </ul></li>
 <li>Add <code>origin</code> remote to refer to your team project:
 <ul>
 <li><code>git remote add origin [INSERT YOUR TEAM'S REPOSITORY URL FROM GITHUB HERE]</code></li>
 </ul></li>
-<li>Push your <code>ex02</code> branch to your GitHub repository (now the remote named <code>origin</code>):
+<li>Push your <code>ex04</code> branch to your GitHub repository (now the remote named <code>origin</code>):
 <ul>
-<li><code>git push origin ex02</code></li>
+<li><code>git push origin ex04</code></li>
 </ul></li>
-<li>Open GitHub to your team’s repository and confirm that a branch named <code>ex02</code> was pushed! You should see the last commit made by <code>ajaygandecha</code> and <code>krisjordan</code> with a commit ID hash prefix of <code>9661663</code>.</li>
+<li>Open GitHub to your team’s repository and confirm that a branch named <code>ex04</code> was pushed! You should see the last commit made by <code>ajaygandecha</code>.</li>
 <li>You can also view this commit locally: <code>git log -1</code></li>
 </ol>
 <h2 id="team-member-1.-configure-remotesbranches">Team Member 1. Configure Remotes/Branches</h2>
 <p><strong>Only the member of the team who <em>did not</em> complete the steps above, should complete these steps.</strong></p>
-<p>After <em>YOUR TEAMMATE</em> has completed their steps above, you should join the correct team and accept the assignment. This will add you to your team’s repository on GitHub. Assignment acceptance link: <a href="https://classroom.github.com/a/w5UXJWBQE" class="uri">https://classroom.github.com/a/w5UXJWBQE</a> Then continue with your local repository setup:</p>
+<p>After <em>YOUR TEAMMATE</em> has completed their steps above, you should join the correct team and accept the assignment. This will add you to your team’s repository on GitHub. Assignment acceptance link: &lt;&gt; Then continue with your local repository setup:</p>
 <ol type="1">
 <li>“Rename” the <code>origin</code> remote repository to <code>upstream</code>:
 <ul>
 <li><code>git remote rm origin</code></li>
-<li><code>git remote add upstream https://github.com/comp423-24f/ex02-starter.git</code></li>
+<li><code>git remote add upstream https://github.com/comp423-24f/ex04-starter.git</code></li>
 </ul></li>
 <li>Add <code>origin</code> remote to refer to your team project:
 <ul>
@@ -117,15 +119,13 @@
 <ul>
 <li><code>git fetch origin</code></li>
 </ul></li>
-<li>Switch to your team’s <code>ex02</code> branch:
+<li>Switch to your team’s <code>ex04</code> branch:
 <ul>
-<li><code>git switch ex02</code></li>
-</ul></li>
-<li>Confirm the correct state of your repository:
-<ul>
-<li><code>git log -1</code> should show a commit with message “Todo Feature Setup”.</li>
+<li><code>git switch ex04</code></li>
 </ul></li>
 </ol>
+<h2 id="completing-the-assignment">Completing the Assignment</h2>
+<p>Once your repository has been set up, access the <code>/docs/exercises/ex04.md</code> file. This file includes instructions on how to proceed with the assignment.</p>
 </div>
 
        
@@ -133,7 +133,7 @@
     </div> 
 
     <div class="authors-box bg-light mt-4 py-3 ps-4">
-      <span> Contributor(s):        Kris Jordan, Jade Keegan</span>
+      <span> Contributor(s): Ajay Gandecha</span>
     </div>
   </div>
   <div class='link-page mt-3 container'>
