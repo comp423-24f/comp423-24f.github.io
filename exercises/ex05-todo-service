@@ -1,0 +1,89 @@
+---
+title: EX05 - Connecting to the Backend Todo Service
+author:
+ - Jade Keegan
+ - Kris Jordan
+page: exercises
+template: overview
+---
+
+# EX05: Connecting to the Backend Todo Service
+
+In the past several weeks, you have gained experience in Angular/TS and FastAPI, allowing you to create a functioning Todo List feature from backend to frontend! Now that you have the skillset, it's time to connect everything together by adding one new piece of functionality to your Todo List that you might have noticed was missing -- editing the text of Todo items!
+
+In this assignment, you will need to draw on material from the past exercises and some content about services and SQLAlchemy from lecture to build your new feature. Unlike previous assignments, we will not be providing as much guidance in the write up or in the code itself, but don't worry! You have all the knowledge you need to determine how to implement this "update" feature and figure out where to add code.
+
+## Configuring Remotes/Branches
+1. In your EX04 repository, remove the previous ex04-starter remote repository:
+   - `git remote rm upstream`
+2. Add the ex05-starter repository as the `upstream` remote instead:
+   - `git remote add upstream https://github.com/comp423-24f/ex05-starter`
+   - Run `git remote -v` to confirm that origin (your EX04 repository) and ex05-starter are your only remotes.
+3. Fetch upstream branches:
+   - `git fetch upstream`
+4. Switch to the `ex05-starter` branch, and create a branch named `ex05` where you will do your work:
+   - `git switch ex05-starter`
+   - `git switch -c ex05` (Note: `-c` is shorthand for `--create`)
+5. Push your `ex05` branch to your GitHub repository (as in EX04, it is the remote named `origin`):
+   - `git push origin ex05`
+6. Open your team's repository on GitHub and confirm that a branch named `ex05` was pushed.
+
+## Set Up
+1. Complete the instructions above to set up your repository and `ex05` branch.
+2. Rebuild your DevContainer if necessary.
+3. Run `pushd frontend` -> `npm install` -> `popd` to install dependencies.
+4. Run `python3 -m backend.script.reset_demo` to create the database and load it with fake data.
+5. Run `honcho start` to start up your application.
+
+## General Exercise Information
+
+### Commit Expectations
+
+We expect you to commit after completing "significant" pieces of functionality, as well as write meaningful messages for each commit. You will be expected to determine where and what to commit yourself this time!
+
+### GPT/AI Usage Policy
+
+We highly discourage you from using ChatGPT or other AI assistants when working on this assignment. While it is okay to use AI for conceptual questions, we recommend that you practice your ability to find and understand documentation on your own - ChatGPT is sometimes inaccurate, and it often doesn't have knowledge of the design patterns we prefer you to use.
+
+Aside from conceptual help, however, you should _not_ use code sourced from ChatGPT/AI, as this is an Academic Honor Violation. _All code written must be your original work._
+
+## Step 1: Review the Code
+
+Although these structure and purpose of all the Todo-related files should still be fairly fresh in your mind, it's always good to take a step back and review what files you will be working with before adding new functionality to a feature! Further, the starter code for this assignment now contains a solution to EX04, so be sure to check out the implementation of the frontend and backend if there were any parts of EX04 that you didn't fully complete or implemented differently.
+
+## Step 2: Implement Functionality to Update the Todo Title
+
+Currently, our "update" functionality only updates the `completed` status of a Todo item. Your job is to create a new update method that allows the user to update the `title` field of a Todo item.
+
+In order to complete this exercise, you will need to do the following:
+
+- Add a new update method to the backend Todo service file.
+- Add a new put method to the backend Todo API file.
+- Call the API from the frontend Todo service.
+- Update the Todo Component TS and HTML files to allow the user to update any Todo item.
+- Style any new HTML elements that you add.
+
+### Implementation Expectations
+
+While you generally have free reign over how you would like to implement this feature, please follow the expectations below:
+
+- [ ] Each Todo item should be editable _inline_ (i.e., the text for a Todo should be replaced by some "editor" within the list item).
+   - For example, on Google Docs, clicking the document title in the top left changes the title to an text editor. Feel free to simplify this behavior by triggering the change when clicking some "edit" button rather than the Todo text itself.
+- [ ] Only one Todo should be in "edit mode" at a time.
+- [ ] When "edit mode" is activated for a Todo, the editor should already contain the _existing text_ of the Todo item the user is editing. It should not be blank!
+- [ ] When in "edit mode," the Todo list item should have a clear way to "submit" the edits.
+- [ ] Submitting edits should clear the text out of the editor.
+- [ ] Users should be able to deactivate/cancel edit mode.
+- [ ] New elements should be styled to align with the existing Todo list styling (must use MatUI where possible!), and new styling should makes sense from a user experience (UX) standpoint.
+
+**NOTE:** Although the inline editor should be very simple in terms of what code you need to write (you don't need to modify any models), figuring out conceptually how to implement it is probably the only "difficult" part of this assignment. While we are happy to help in OH, be sure to take some time figure out the implementation yourself! An important part of writing code is solving these sorts of logical problems.
+
+## Final Steps: View Your Work!
+
+Congratulations! You just connected your frontend project from ex02 to the XL's backend. While you should have also been testing each method/button as you created them, this is also a good opportunity to check for any bugs. It's always a good idea to manually test your feature once you complete it to ensure everything works.
+
+## Submission
+
+Once your code is fully tested, push your code up to your Github repository using `git push`. Then, go to Gradescope and complete the exercise submission there!
+
+_Note:_ Be sure to record your demo video before you close out your container to avoid having to rebuild! :)
