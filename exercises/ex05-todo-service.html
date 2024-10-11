@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> EX05 - Connecting to the Backend Todo Service - COMP423 - 23S</title>
+  <link rel="icon" type="image/png" href="/static/tabbrand.png" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="/static/styles.css?v=1728661660.0431771">
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-1 fixed-top">
+    <div class="container">
+      <a href="/" class="navbar-brand">COMP423</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navmenu">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link " href="/">agenda</a>
+          </li>
+          <li class="nav-item">
+            <a href="/support" class="nav-link">support</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div id="exercises-page" class="container">
+    <div class="row pt-4">
+      <div class="col-12">
+        <h2>EX05 - Connecting to the Backend Todo Service</h2>
+        <hr class="title" />
+      </div>
+    </div>
+
+    <script src="/static/scripts/toggle-handler.js"></script>
+    
+    <div class="row px-4">
+        <div id="box" class="toc col-xl-3 col-lg-3 order-1 order-lg-2" role="doc-toc">
+            <div id="menu-overview" class="link-page box">
+                <button id="overview-button" class="btn btn-ov" onclick="hideshow()">Overview  <img id="button-img" class="filter-icon" src="/static/components/Itinerary/arrow-up.svg" style="height:15px; padding-left: 4px;"></button>
+                <div id="overview-links">
+                    <div id="TOC" role="doc-toc">
+                        <ul class="overview-item"><ul>
+<li><a href="#ex05-connecting-to-the-backend-todo-service">EX05: Connecting to the Backend Todo Service</a>
+<ul>
+<li><a href="#configuring-remotesbranches">Configuring Remotes/Branches</a></li>
+<li><a href="#set-up">Set Up</a></li>
+<li><a href="#general-exercise-information">General Exercise Information</a>
+<ul>
+<li><a href="#commit-expectations">Commit Expectations</a></li>
+<li><a href="#gptai-usage-policy">GPT/AI Usage Policy</a></li>
+</ul></li>
+<li><a href="#step-1-review-the-code">Step 1: Review the Code</a></li>
+<li><a href="#step-2-implement-functionality-to-update-the-todo-title">Step 2: Implement Functionality to Update the Todo Title</a>
+<ul>
+<li><a href="#implementation-expectations">Implementation Expectations</a></li>
+</ul></li>
+<li><a href="#final-steps-view-your-work">Final Steps: View Your Work!</a></li>
+<li><a href="#submission">Submission</a></li>
+</ul></li>
+</ul>
+</</ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="content" class="content col-xl-9 col-lg-9 order-2 order-lg-1 pt-3"><h1 id="ex05-connecting-to-the-backend-todo-service">EX05: Connecting to the Backend Todo Service</h1>
+<p>In the past several weeks, you have gained experience in Angular/TS and FastAPI, allowing you to create a functioning Todo List feature from backend to frontend! Now that you have the skillset, it’s time to connect everything together by adding one new piece of functionality to your Todo List that you might have noticed was missing – editing the text of Todo items!</p>
+<p>In this assignment, you will need to draw on material from the past exercises and some content about services and SQLAlchemy from lecture to build your new feature. Unlike previous assignments, we will not be providing as much guidance in the write up or in the code itself, but don’t worry! You have all the knowledge you need to determine how to implement this “update” feature and figure out where to add code.</p>
+<h2 id="configuring-remotesbranches">Configuring Remotes/Branches</h2>
+<ol type="1">
+<li>In your EX04 repository, remove the previous ex04-starter remote repository:
+<ul>
+<li><code>git remote rm upstream</code></li>
+</ul></li>
+<li>Add the ex05-starter repository as the <code>upstream</code> remote instead:
+<ul>
+<li><code>git remote add upstream https://github.com/comp423-24f/ex05-starter</code></li>
+<li>Run <code>git remote -v</code> to confirm that origin (your EX04 repository) and ex05-starter are your only remotes.</li>
+</ul></li>
+<li>Fetch upstream branches:
+<ul>
+<li><code>git fetch upstream</code></li>
+</ul></li>
+<li>Switch to the <code>ex05-starter</code> branch, and create a branch named <code>ex05</code> where you will do your work:
+<ul>
+<li><code>git switch ex05-starter</code></li>
+<li><code>git switch -c ex05</code> (Note: <code>-c</code> is shorthand for <code>--create</code>)</li>
+</ul></li>
+<li>Push your <code>ex05</code> branch to your GitHub repository (as in EX04, it is the remote named <code>origin</code>):
+<ul>
+<li><code>git push origin ex05</code></li>
+</ul></li>
+<li>Open your team’s repository on GitHub and confirm that a branch named <code>ex05</code> was pushed.</li>
+</ol>
+<h2 id="set-up">Set Up</h2>
+<ol type="1">
+<li>Complete the instructions above to set up your repository and <code>ex05</code> branch.</li>
+<li>Rebuild your DevContainer if necessary.</li>
+<li>Run <code>pushd frontend</code> -&gt; <code>npm install</code> -&gt; <code>popd</code> to install dependencies.</li>
+<li>Run <code>python3 -m backend.script.reset_demo</code> to create the database and load it with fake data.</li>
+<li>Run <code>honcho start</code> to start up your application.</li>
+</ol>
+<h2 id="general-exercise-information">General Exercise Information</h2>
+<h3 id="commit-expectations">Commit Expectations</h3>
+<p>We expect you to commit after completing “significant” pieces of functionality, as well as write meaningful messages for each commit. You will be expected to determine where and what to commit yourself this time!</p>
+<h3 id="gptai-usage-policy">GPT/AI Usage Policy</h3>
+<p>We highly discourage you from using ChatGPT or other AI assistants when working on this assignment. While it is okay to use AI for conceptual questions, we recommend that you practice your ability to find and understand documentation on your own - ChatGPT is sometimes inaccurate, and it often doesn’t have knowledge of the design patterns we prefer you to use.</p>
+<p>Aside from conceptual help, however, you should <em>not</em> use code sourced from ChatGPT/AI, as this is an Academic Honor Violation. <em>All code written must be your original work.</em></p>
+<h2 id="step-1-review-the-code">Step 1: Review the Code</h2>
+<p>Although these structure and purpose of all the Todo-related files should still be fairly fresh in your mind, it’s always good to take a step back and review what files you will be working with before adding new functionality to a feature! Further, the starter code for this assignment now contains a solution to EX04, so be sure to check out the implementation of the frontend and backend if there were any parts of EX04 that you didn’t fully complete or implemented differently.</p>
+<h2 id="step-2-implement-functionality-to-update-the-todo-title">Step 2: Implement Functionality to Update the Todo Title</h2>
+<p>Currently, our “update” functionality only updates the <code>completed</code> status of a Todo item. Your job is to create a new update method that allows the user to update the <code>title</code> field of a Todo item.</p>
+<p>In order to complete this exercise, you will need to do the following:</p>
+<ul>
+<li>Add a new update method to the backend Todo service file.</li>
+<li>Add a new put method to the backend Todo API file.</li>
+<li>Call the API from the frontend Todo service.</li>
+<li>Update the Todo Component TS and HTML files to allow the user to update any Todo item.</li>
+<li>Style any new HTML elements that you add.</li>
+</ul>
+<h3 id="implementation-expectations">Implementation Expectations</h3>
+<p>While you generally have free reign over how you would like to implement this feature, please follow the expectations below:</p>
+<ul class="task-list">
+<li><input type="checkbox" disabled="" />
+Each Todo item should be editable <em>inline</em> (i.e., the text for a Todo should be replaced by some “editor” within the list item).<ul>
+<li>For example, on Google Docs, clicking the document title in the top left changes the title to an text editor. Feel free to simplify this behavior by triggering the change when clicking some “edit” button rather than the Todo text itself.</li>
+</ul></li>
+<li><input type="checkbox" disabled="" />
+Only one Todo should be in “edit mode” at a time.</li>
+<li><input type="checkbox" disabled="" />
+When “edit mode” is activated for a Todo, the editor should already contain the <em>existing text</em> of the Todo item the user is editing. It should not be blank!</li>
+<li><input type="checkbox" disabled="" />
+When in “edit mode,” the Todo list item should have a clear way to “submit” the edits.</li>
+<li><input type="checkbox" disabled="" />
+Submitting edits should clear the text out of the editor.</li>
+<li><input type="checkbox" disabled="" />
+Users should be able to deactivate/cancel edit mode.</li>
+<li><input type="checkbox" disabled="" />
+New elements should be styled to align with the existing Todo list styling (must use MatUI where possible!), and new styling should makes sense from a user experience (UX) standpoint.</li>
+</ul>
+<p><strong>NOTE:</strong> Although the inline editor should be very simple in terms of what code you need to write (you don’t need to modify any models), figuring out conceptually how to implement it is probably the only “difficult” part of this assignment. While we are happy to help in OH, be sure to take some time figure out the implementation yourself! An important part of writing code is solving these sorts of logical problems.</p>
+<h2 id="final-steps-view-your-work">Final Steps: View Your Work!</h2>
+<p>Congratulations! You just connected your frontend project from ex02 to the XL’s backend. While you should have also been testing each method/button as you created them, this is also a good opportunity to check for any bugs. It’s always a good idea to manually test your feature once you complete it to ensure everything works.</p>
+<h2 id="submission">Submission</h2>
+<p>Once your code is fully tested, push your code up to your Github repository using <code>git push</code>. Then, go to Gradescope and complete the exercise submission there!</p>
+<p><em>Note:</em> Be sure to record your demo video before you close out your container to avoid having to rebuild! :)</p>
+</div>
+
+       
+
+    </div> 
+
+    <div class="authors-box bg-light mt-4 py-3 ps-4">
+      <span> Contributor(s):        Jade Keegan, Kris Jordan</span>
+    </div>
+  </div>
+  <div class='link-page mt-3 container'>
+    <footer>
+      <h6 class="text-center align-middle footer-text">&copy; 2024 <a href="https://krisjordan.com">Kris Jordan</a>
+        - <a
+          href="https://docs.google.com/forms/d/e/1FAIpQLScQMteEvnQpBfGsAYP5TpuqokQenhZUIf8CNvfAUUZEjMCWZQ/viewform?usp=sf_link">Feedback
+          Form</a>
+        - Made with 💛 in <a href="https://cs.unc.edu/">Chapel Hill</a></h6>
+    </footer>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+    crossorigin="anonymous"></script>
+
+  <!-- Load React. -->
+  <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+  <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</body>
+
+</html>
