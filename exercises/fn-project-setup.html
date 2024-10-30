@@ -9,7 +9,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
-  <link rel="stylesheet" href="/static/styles.css?v=1730319044.7213793">
+  <link rel="stylesheet" href="/static/styles.css?v=1730319041.860174">
 </head>
 
 <body>
@@ -50,7 +50,6 @@
                 <div id="overview-links">
                     <div id="TOC" role="doc-toc">
                         <ul class="overview-item"><ul>
-<li><a href="#setup-team-on-github-classroom">Setup Team on GitHub Classroom</a></li>
 <li><a href="#setup-project-tracking-board">Setup Project Tracking Board</a></li>
 <li><a href="#initialize-team-repository">Initialize Team Repository</a></li>
 <li><a href="#github-repository-configuration">GitHub Repository Configuration</a></li>
@@ -62,16 +61,11 @@
                 </div>
             </div>
         </div>
-        <div id="content" class="content col-xl-9 col-lg-9 order-2 order-lg-1 pt-3"><h2 id="setup-team-on-github-classroom">Setup Team on GitHub Classroom</h2>
+        <div id="content" class="content col-xl-9 col-lg-9 order-2 order-lg-1 pt-3"><h2 id="setup-project-tracking-board">Setup Project Tracking Board</h2>
 <ol type="1">
-<li><p>The youngest member of your team present on 3/22 should carefully create the team. Only one member needs to take this step <em>first</em>. Create a team named “Final Team ZN” where the Z is the Zone Number and N is the Table Number of your group. For example, “Final Team A1”. Accept the assignment on behalf of your team and, after refreshing, it will create a repository at <code>github.com/comp423-24s/csxl-final-team-z9</code>. Assignment acceptance link: <a href="https://classroom.github.com/a/mdWWzuiY" class="uri">https://classroom.github.com/a/mdWWzuiY</a></p></li>
-<li><p>After completing Step 1, all other members of the team should join the correct team and accept the assignment to be added to the repository. Assignment acceptance link: <a href="https://classroom.github.com/a/mdWWzuiY" class="uri">https://classroom.github.com/a/mdWWzuiY</a></p></li>
-</ol>
-<h2 id="setup-project-tracking-board">Setup Project Tracking Board</h2>
-<ol type="1">
-<li>The oldest member of your team present on 3/22 should carefully create a project board.</li>
+<li>The oldest member of your team present in class should carefully create a project board (after everyone joins classroom repo).</li>
 <li>From your team’s repository, go to the Projects Tab. Then look for the green button regarding projects, click the down-facing triangle and select “New Project”. Click the New Project button.</li>
-<li>In the Project Templates Sidebar, select “Featured.” Then select the <strong>Kanban</strong> template.</li>
+<li>In the Project Templates Sidebar, select “Featured.” Then select the <strong>Team Planning</strong> template.</li>
 <li>In the <strong>Project name</strong> choose “Final Team ZN” where Z is your zone and N is your table number.</li>
 <li>Confirm steps 3 and 4 are correct, then select “Create”.</li>
 <li>Go to Project Settings (top-right ellipses)</li>
@@ -82,11 +76,11 @@
 </ol>
 <h2 id="initialize-team-repository">Initialize Team Repository</h2>
 <ol type="1">
-<li>The second youngest and second oldest members of your team present on 3/22 should pair up on <em>the second oldest member’s computer</em> to initialize the team repository.</li>
+<li>The second youngest and second oldest members should pair up on <em>the second oldest member’s computer</em> to initialize the team repository.</li>
 <li>In a terminal on your host system, not within VSCode, create a new directory with the name of your team’s final project repository and <code>cd</code> into it:
 <ul>
-<li><code>mkdir csxl-final-team-ZN</code> (replace ZN with your team’s zone and table number)</li>
-<li><code>cd csxl-final-team-ZN</code></li>
+<li><code>mkdir csxl-team-ZN</code> (replace ZN with your team’s zone and table number)</li>
+<li><code>cd csxl-team-ZN</code></li>
 </ul></li>
 <li>Initialize the new empty directory as a <code>git</code> repository:
 <ul>
@@ -123,25 +117,31 @@
 </ul></li>
 <li>Change to the Branches tab in the sidebar
 <ol start="0" type="1">
-<li>Add Branch Protection Rule to prevent any pushing to <code>main</code></li>
-<li>Branch name pattern: <code>main</code></li>
-<li>(Check) Lock branch</li>
-<li>(Check) Do not allow bypassing the above settings</li>
-<li>Save Changes with Create Button</li>
+<li>Add Branch Ruleset</li>
+<li>Ruleset Name: <code>main</code></li>
+<li>Enforcement status: <code>Active</code></li>
+<li>Targets, Add Target, Include by Pattern: <code>main</code></li>
+<li>(Check) Restrict creations</li>
+<li>(Check) Restrict updates</li>
+<li>(Check) Block force pushes</li>
+<li>Save Changes with <code>Create</code> Button</li>
 </ol></li>
-<li>Add Branch Protection Rule to enforce a professional team workflow on <code>stage</code>
+<li>Add another Ruleset (Go back to Rulesets tab)
 <ol type="1">
-<li>Branch name pattern: <code>stage</code></li>
+<li>New Branch Ruleset</li>
+<li>Ruleset name: <code>stage</code></li>
+<li>Enforcement status: <code>Active</code></li>
+<li>Targets, Add Target, Include by Pattern: <code>stage</code></li>
+<li>(Check) Restrict deletions</li>
+<li>(Check) Require linear history</li>
 <li>(Check) Require a pull request before merging
 <ol type="1">
 <li>(Check) Require approvals: 1 required</li>
 <li>(Check) Dismiss stale pull request approvals when new commits are pushed</li>
 <li>(Check) Require approval of the most recent reviewable push</li>
-</ol></li>
 <li>(Check) Require conversation resolution before merging</li>
-<li>(Check) Require linear history</li>
-<li>(Check) Do not allow bypassing the above settings</li>
-<li>Save Changes</li>
+</ol></li>
+<li>Save Changes with <code>Create</code></li>
 </ol></li>
 </ol>
 <h2 id="setting-up-team-members-development-repositories">Setting up Team Member’s Development Repositories</h2>
@@ -150,7 +150,7 @@
 <li>In a terminal on your host system, not within VSCode, clone your team’s final project repository and <code>cd</code> into it:
 <ul>
 <li><code>git clone FINAL-TEAM-REPOSITORY</code> - Find the Final Team Repository Clone link from the Code dropdown in your GitHub project’s page.</li>
-<li><code>cd csxl-final-team-ZN</code> - Replace ZN with your team’s zone and table number.</li>
+<li><code>cd csxl-team-ZN</code> - Replace ZN with your team’s zone and table number.</li>
 </ul></li>
 <li>Fetch all branches:
 <ul>
