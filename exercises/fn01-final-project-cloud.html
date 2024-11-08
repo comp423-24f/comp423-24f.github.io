@@ -9,7 +9,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
-  <link rel="stylesheet" href="/static/styles.css?v=1725048692.7696376">
+  <link rel="stylesheet" href="/static/styles.css?v=1731091627.0510042">
 </head>
 
 <body>
@@ -99,7 +99,7 @@
 <ol type="1">
 <li>Create binding</li>
 <li>Name: <code>admin-ONYEN</code> (replace <code>ONYEN</code> with teammate’s ONYEN)</li>
-<li>Be sure the project you are in in CloudApps is <code>comp590-140-24sp-ONYEN</code></li>
+<li>Be sure the project you are in in CloudApps is <code>comp590-140-24fa-ONYEN</code></li>
 </ol>
 <ul>
 <li><code>ONYEN</code> should be your UNC ONYEN</li>
@@ -179,12 +179,12 @@
 <p>This command will succeed silently.</p>
 <h3 id="create-the-openshift-application">Create the OpenShift Application</h3>
 <p>IMPORTANT: Be sure you substitute your team’s information in TWO places below! First: the repository URL, second the HOST variable should not be <code>csxl-team-XX</code>, but should instead be your team zone + number. This is your team’s table. Using lowercase is encouraged.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a><span class="ex">oc</span> new-app python:3.11~git@github.com:comp423-24s/<span class="op">&lt;</span>your-final_repo_name<span class="op">&gt;</span>.git#stage <span class="kw">\</span></span>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a><span class="ex">oc</span> new-app python:3.11~git@github.com:comp423-24f/<span class="op">&lt;</span>your-final_repo_name<span class="op">&gt;</span>.git#stage <span class="kw">\</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a>  <span class="ex">--source-secret</span>=comp590-final-project-deploykey <span class="kw">\</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true"></a>  <span class="ex">--name</span>=final-project <span class="kw">\</span></span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true"></a>  <span class="ex">--strategy</span>=docker <span class="kw">\</span></span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true"></a>  <span class="ex">--env</span>=MODE=development <span class="kw">\</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true"></a>  <span class="ex">--env</span>=HOST=csxl-team-<span class="op">&lt;</span>TEAM NUMBER<span class="op">&gt;</span>-comp590-24s.apps.unc.edu</span></code></pre></div>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true"></a>  <span class="ex">--env</span>=HOST=csxl-team-<span class="op">&lt;</span>TEAM NUMBER<span class="op">&gt;</span>-comp590-24f.apps.unc.edu</span></code></pre></div>
 <p>Notice the <code>#stage</code> at the end of the repository URL. This is the branch name that OpenShift will pull from. When setting up the final project, you created a branch named <code>stage</code> and established it as the primary branch for your repository. This notion of a staging branch is a common practice in DevOps, and is a good way to keep your production code separate (live at csxl.unc.edu) from your development code (which you are establishing right now).</p>
 <p>While the project is building, add secrets to the environment variables of the deployment and verify their existence with <code>list</code>:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a><span class="ex">oc</span> set env deployment/final-project --from=secret/final-project-environment</span>
@@ -197,7 +197,7 @@
 <p>Next, we can create a route to the service with a specifically chosen hostname. <strong>Please replace <code>XX</code> with your team’s number and table number</strong>.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a><span class="ex">oc</span> create route edge <span class="kw">\</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true"></a>  <span class="ex">--service</span>=final-project <span class="kw">\</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true"></a>  <span class="ex">--hostname</span>=csxl-team-<span class="op">&lt;</span>TEAM NUMBER<span class="op">&gt;</span>-comp590-24s.apps.unc.edu</span></code></pre></div>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true"></a>  <span class="ex">--hostname</span>=csxl-team-<span class="op">&lt;</span>TEAM NUMBER<span class="op">&gt;</span>-comp590-24f.apps.unc.edu</span></code></pre></div>
 <p>You can now visit the hostname for your team and access it in the browser. If you see a message from OpenShift that says “Application is not available”, it means that the application is still building. Once your build completes, you should see the application running, but there is still one more important step: resetting the database.</p>
 <h3 id="resetting-the-database">Resetting the Database</h3>
 <p>The database that you created in the previous step is empty. You will need to reset the database to the state that it was in when you submitted your final project. To do this, you will need to run the <code>reset_demo.py</code> script that is included in your final project repository.</p>
